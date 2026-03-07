@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Buku Kas</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .table-container {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
+    }
+    
+    .table-container::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+    
+    .table-container::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    .row-debit {
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.08) 0%, transparent 100%);
+    }
+    
+    .row-credit {
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.08) 0%, transparent 100%);
+    }
+    
+    .row-saldo {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    }
+    
+    .page-fade {
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      .print-break {
+        page-break-inside: avoid;
+      }
+    }
+    
+    .btn-active {
+      @apply shadow-lg;
+    }
+    
+    .btn-inactive {
+      @apply shadow-none;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+      .nav-buttons {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        z-index: 50;
+      }
+
+      .nav-buttons button {
+        flex: 1;
+        font-size: 0.75rem;
+        padding: 0.5rem !important;
+      }
+
+      .nav-buttons i {
+        width: 16px !important;
+        height: 16px !important;
+      }
+
+      .table-wrapper {
+        font-size: 0.85rem;
+      }
+
+      .table-wrapper table {
+        font-size: 0.75rem;
+      }
+
+      .table-wrapper td {
+        padding: 0.75rem 0.5rem !important;
+      }
+
+      .summary-card {
+        padding: 1rem !important;
+      }
+
+      .summary-card h3 {
+        font-size: 0.75rem;
+      }
+
+      .summary-card p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0;
+      }
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full bg-slate-100">
+  <div class="h-full overflow-auto flex flex-col">
+   <!-- Navigation Tabs -->
+   <div class="fixed top-4 right-4 no-print flex gap-2 z-50 nav-buttons">
+    <button onclick="switchPage('laporan')" class="page-btn-laporan flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all text-sm font-medium shadow-lg shadow-blue-500/30"> <i data-lucide="book-open" class="w-4 h-4"></i> <span class="hidden sm:inline">Laporan</span> </button> <button onclick="switchPage('input')" class="page-btn-input flex items-center gap-2 bg-slate-300 hover:bg-slate-400 text-slate-800 px-4 py-2 rounded-lg transition-all text-sm font-medium shadow-none"> <i data-lucide="plus-circle" class="w-4 h-4"></i> <span class="hidden sm:inline">Input Transaksi</span> </button>
+   </div><!-- HALAMAN 1: LAPORAN -->
+   <div id="page-laporan" class="w-full min-h-full p-4 md:p-8 pt-20 page-fade">
+    <div class="min-h-full p-4 md:p-8">
+     <!-- Header -->
+     <div class="max-w-7xl mx-auto mb-6">
+      <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/20">
+       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+         <div class="flex items-center gap-3 mb-2">
+          <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+           <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+           <h1 id="report-title" class="text-2xl md:text-3xl font-bold text-white">LAPORAN BUKU KAS</h1>
+           <p id="org-name" class="text-blue-200 text-sm md:text-base">Badan Usaha Milik Desa</p>
+          </div>
+         </div>
+        </div>
+        <div class="flex flex-col md:items-end gap-2">
+         <div class="flex items-center gap-2 text-white/90">
+          <i data-lucide="calendar" class="w-4 h-4"></i> <span class="text-sm font-medium">Periode: JANUARI - JUNI 2025</span>
+         </div><button onclick="window.print()" class="no-print flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur text-white px-4 py-2 rounded-lg transition-all text-sm font-medium"> <i data-lucide="printer" class="w-4 h-4"></i> Cetak Laporan </button>
+        </div>
+       </div>
+      </div>
+     </div><!-- Summary Cards -->
+     <div class="max-w-7xl mx-auto mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+       <!-- Saldo Awal -->
+       <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+        <div class="flex items-center gap-3 mb-3">
+         <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+          <i data-lucide="wallet" class="w-5 h-5 text-slate-600"></i>
+         </div><span class="text-slate-500 text-sm font-medium">Saldo Awal</span>
+        </div>
+        <p class="text-xl font-bold text-slate-800">Rp 10.490.120</p>
+       </div><!-- Total Debit -->
+       <div class="bg-white rounded-xl p-5 shadow-sm border border-green-100">
+        <div class="flex items-center gap-3 mb-3">
+         <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+          <i data-lucide="trending-up" class="w-5 h-5 text-green-600"></i>
+         </div><span class="text-slate-500 text-sm font-medium">Total Debit</span>
+        </div>
+        <p class="text-xl font-bold text-green-600">Rp 41.596.000</p>
+       </div><!-- Total Kredit -->
+       <div class="bg-white rounded-xl p-5 shadow-sm border border-red-100">
+        <div class="flex items-center gap-3 mb-3">
+         <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center">
+          <i data-lucide="trending-down" class="w-5 h-5 text-red-500"></i>
+         </div><span class="text-slate-500 text-sm font-medium">Total Kredit</span>
+        </div>
+        <p class="text-xl font-bold text-red-500">Rp 25.829.600</p>
+       </div><!-- Saldo Akhir -->
+       <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-5 shadow-lg shadow-blue-500/20">
+        <div class="flex items-center gap-3 mb-3">
+         <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+          <i data-lucide="piggy-bank" class="w-5 h-5 text-white"></i>
+         </div><span class="text-blue-100 text-sm font-medium">Saldo Akhir</span>
+        </div>
+        <p class="text-xl font-bold text-white">Rp 28.256.690</p>
+       </div>
+      </div>
+     </div><!-- Table -->
+     <div class="max-w-7xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+       <div class="p-4 md:p-6 border-b border-slate-200 bg-slate-50">
+        <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2"><i data-lucide="table" class="w-5 h-5 text-blue-600"></i> Detail Transaksi Januari - Juni 2025</h2>
+       </div>
+       <div class="p-4 md:p-6 border-b border-slate-200 flex flex-wrap gap-3">
+        <button id="btn-monthly-toggle" onclick="toggleMonthlyView()" class="no-print flex items-center gap-2 bg-slate-200 hover:bg-slate-300 text-slate-800 px-4 py-2 rounded-lg transition-all text-sm font-medium active:scale-95"> <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Ringkasan Bulanan </button> <button id="btn-export-pdf" onclick="exportToPDF()" class="no-print flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all text-sm font-medium active:scale-95"> <i data-lucide="file-pdf" class="w-4 h-4"></i> Export PDF </button>
+       </div>
+       <div class="px-4 md:px-6 py-3 bg-blue-50 border border-blue-200 rounded-lg no-print" id="edit-info" style="display: none;">
+        <p class="text-sm text-blue-700"><strong>Mode Edit Aktif:</strong> Klik tombol Edit pada transaksi yang ingin diubah, lalu sesuaikan di form Input Transaksi.</p>
+       </div>
+       <div id="monthly-summary" class="hidden p-4 md:p-6 border-b border-slate-200 bg-slate-50">
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2"><i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i> Ringkasan Per Bulan</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="monthly-cards">
+        </div>
+       </div>
+       <div class="table-container overflow-x-auto">
+        <table class="w-full min-w-[900px]">
+         <thead>
+          <tr class="bg-gradient-to-r from-slate-800 to-slate-700">
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider w-24">Bulan</th>
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider w-32">Tanggal</th>
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Keterangan</th>
+           <th class="px-4 py-4 text-center text-xs font-semibold text-white uppercase tracking-wider w-24">No. Bukti</th>
+           <th class="px-4 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider w-36">Debet</th>
+           <th class="px-4 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider w-36">Kredit</th>
+           <th class="px-4 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider w-40">Saldo</th>
+           <th class="px-4 py-4 text-center text-xs font-semibold text-white uppercase tracking-wider w-20">Aksi</th>
+          </tr>
+         </thead>
+         <tbody class="divide-y divide-slate-100" id="transaction-table">
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- Footer -->
+     <div class="max-w-7xl mx-auto mt-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+          <i data-lucide="info" class="w-5 h-5 text-blue-600"></i>
+         </div>
+         <div>
+          <p class="text-sm font-medium text-slate-700">Laporan dibuat secara otomatis</p>
+          <p class="text-xs text-slate-500">Periode: Januari - Juni 2025</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-4 text-sm text-slate-500">
+         <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-green-500"></div><span>Pemasukan</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div><span>Pengeluaran</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-blue-500"></div><span>Saldo</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- HALAMAN 2: INPUT TRANSAKSI -->
+   <div id="page-input" class="hidden w-full min-h-full p-4 md:p-8 page-fade">
+    <div class="min-h-full p-4 md:p-8 pt-20">
+     <div class="max-w-4xl mx-auto">
+      <!-- Header Input -->
+      <div class="bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-green-900/20 mb-6">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+         <i data-lucide="plus-circle" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+         <h1 class="text-2xl md:text-3xl font-bold text-white">INPUT TRANSAKSI BARU</h1>
+         <p class="text-green-200 text-sm md:text-base">Tambahkan transaksi baru ke laporan Buku Kas</p>
+        </div>
+       </div>
+      </div><!-- Form Input -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+       <form id="transaction-form" onsubmit="addTransaction(event)">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+         <!-- Bulan -->
+         <div>
+          <label for="input-bulan" class="block text-sm font-semibold text-slate-700 mb-2">Bulan <span class="text-red-500">*</span></label> <select id="input-bulan" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"> <option value="">Pilih Bulan</option> <option value="JANUARI">JANUARI</option> <option value="FEBRUARI">FEBRUARI</option> <option value="MARET">MARET</option> <option value="APRIL">APRIL</option> <option value="MEI">MEI</option> <option value="JUNI">JUNI</option> <option value="JULI">JULI</option> <option value="AGUSTUS">AGUSTUS</option> <option value="SEPTEMBER">SEPTEMBER</option> <option value="OKTOBER">OKTOBER</option> <option value="NOVEMBER">NOVEMBER</option> <option value="DESEMBER">DESEMBER</option> </select>
+         </div><!-- Tanggal -->
+         <div>
+          <label for="input-tanggal" class="block text-sm font-semibold text-slate-700 mb-2">Tanggal <span class="text-red-500">*</span></label> <input type="date" id="input-tanggal" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+         </div><!-- Keterangan -->
+         <div class="md:col-span-2">
+          <label for="input-keterangan" class="block text-sm font-semibold text-slate-700 mb-2">Keterangan <span class="text-red-500">*</span></label> <input type="text" id="input-keterangan" required placeholder="Contoh: Gaji Pegawai, Biaya Listrik, Pendapatan..." class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+         </div><!-- No. Bukti -->
+         <div>
+          <label for="input-nobukti" class="block text-sm font-semibold text-slate-700 mb-2">No. Bukti</label> <input type="text" id="input-nobukti" placeholder="Opsional" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+         </div><!-- Tipe Transaksi -->
+         <div>
+          <label for="input-tipe" class="block text-sm font-semibold text-slate-700 mb-2">Tipe Transaksi <span class="text-red-500">*</span></label> <select id="input-tipe" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"> <option value="">Pilih Tipe</option> <option value="debet">Debet (Pemasukan)</option> <option value="kredit">Kredit (Pengeluaran)</option> </select>
+         </div><!-- Jumlah -->
+         <div>
+          <label for="input-jumlah" class="block text-sm font-semibold text-slate-700 mb-2">Jumlah <span class="text-red-500">*</span></label>
+          <div class="relative">
+           <span class="absolute left-4 top-3 text-slate-600 font-semibold">Rp</span> <input type="number" id="input-jumlah" required min="0" placeholder="0" class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+          </div>
+         </div>
+        </div><!-- Info Section -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+         <div class="flex gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+          <div class="text-sm text-green-700">
+           <p class="font-medium mb-1">Tipe Transaksi:</p>
+           <p><strong>Debet</strong> = Uang masuk (Pemasukan/Pendapatan)</p>
+           <p><strong>Kredit</strong> = Uang keluar (Pengeluaran/Biaya)</p>
+          </div>
+         </div>
+        </div><!-- Action Buttons -->
+        <div class="flex gap-3">
+         <button type="submit" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 active:scale-95 text-white px-6 py-3 rounded-lg transition-all font-medium"> <i data-lucide="save" class="w-4 h-4"></i> Simpan Transaksi </button> <button type="reset" class="flex-1 flex items-center justify-center gap-2 bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-800 px-6 py-3 rounded-lg transition-all font-medium"> <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Form </button>
+        </div>
+       </form>
+      </div><!-- Daftar Transaksi Baru -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 mt-8 overflow-hidden">
+       <div class="p-6 border-b border-slate-200 bg-slate-50">
+        <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2"><i data-lucide="list" class="w-5 h-5 text-green-600"></i> Transaksi Baru Bulan Ini <span id="new-tx-count" class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full ml-2">0</span></h2>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full min-w-[900px]">
+         <thead>
+          <tr class="bg-gradient-to-r from-slate-800 to-slate-700">
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Bulan</th>
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Tanggal</th>
+           <th class="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Keterangan</th>
+           <th class="px-4 py-4 text-center text-xs font-semibold text-white uppercase tracking-wider">No. Bukti</th>
+           <th class="px-4 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">Debet</th>
+           <th class="px-4 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">Kredit</th>
+           <th class="px-4 py-4 text-center text-xs font-semibold text-white uppercase tracking-wider">Aksi</th>
+          </tr>
+         </thead>
+         <tbody class="divide-y divide-slate-100" id="new-transaction-table">
+          <tr>
+           <td colspan="7" class="px-4 py-8 text-center text-slate-500 text-sm">Belum ada transaksi baru. Silakan tambahkan transaksi di form di atas.</td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Transaction data
+    const transactions = [
+      // JANUARI
+      { bulan: 'JANUARI', tanggal: '01 Januari 2025', keterangan: 'SALDO AWAL', debet: 10490120, kredit: 0, saldo: 10490120, jenis: 'saldo' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Biaya Listrik Unit Air Bersih', debet: 0, kredit: 103000, saldo: 10387120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Biaya Listrik Unit Air Bersih', debet: 0, kredit: 103000, saldo: 10284120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Biaya Listrik Unit Air Bersih', debet: 0, kredit: 103000, saldo: 10181120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Pegawai Unit Air Bersih', debet: 0, kredit: 1000000, saldo: 9181120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Pegawai Unit Tambatan Perahu', debet: 0, kredit: 400000, saldo: 8781120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Pegawai Unit Sewa Gedung', debet: 0, kredit: 100000, saldo: 8681120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Beli Balon Lampu Tambatan', debet: 0, kredit: 40000, saldo: 8641120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Beli Buku Kwitansi', debet: 0, kredit: 5000, saldo: 8636120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Beli Kertas 2 Rim', debet: 0, kredit: 192000, saldo: 8444120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Beli Tinta Print 1 Botol', debet: 0, kredit: 98000, saldo: 8346120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Operasional Pelaksana', debet: 0, kredit: 1500000, saldo: 6846120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Biaya Administrasi Bank', debet: 0, kredit: 0, saldo: 6846120, jenis: 'neutral' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Pendapatan Bunga Bank', debet: 0, kredit: 0, saldo: 6846120, jenis: 'neutral' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Pendapatan Unit Air Bersih', debet: 9392000, kredit: 0, saldo: 16238120, jenis: 'debit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Pendapatan Unit Tambatan Perahu', debet: 3000000, kredit: 0, saldo: 19238120, jenis: 'debit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Beban Biaya Pemilik Lahan Tambatan 30%', debet: 0, kredit: 900000, saldo: 18338120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Pelaksana Operasional 3 Orang', debet: 0, kredit: 4022200, saldo: 14315920, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Pengawas 3 Orang', debet: 0, kredit: 1723800, saldo: 12592120, jenis: 'credit' },
+      { bulan: 'JANUARI', tanggal: '-', keterangan: 'Gaji Penasehat', debet: 0, kredit: 574600, saldo: 12017520, jenis: 'credit' },
+      
+      // FEBRUARI
+      { bulan: 'FEBRUARI', tanggal: '04 Februari 2025', keterangan: 'BIAYA LISTRIK UNIT AIR', debet: 0, kredit: 103000, saldo: 22404640, jenis: 'credit' },
+      { bulan: 'FEBRUARI', tanggal: '-', keterangan: 'PENDAPATAN UNIT AIR BERSIH', debet: 9248000, kredit: 0, saldo: 31652640, jenis: 'debit' },
+      { bulan: 'FEBRUARI', tanggal: '-', keterangan: 'PENDAPATAN UNIT TAMBATAN PERAHU', debet: 2500000, kredit: 0, saldo: 34152640, jenis: 'debit' },
+      
+      // MARET
+      { bulan: 'MARET', tanggal: 'Maret 2025', keterangan: 'BIAYA LISTRIK UNIT AIR', debet: 0, kredit: 103000, saldo: 34049640, jenis: 'credit' },
+      { bulan: 'MARET', tanggal: '-', keterangan: 'PENDAPATAN UNIT AIR BERSIH', debet: 10528000, kredit: 0, saldo: 44577640, jenis: 'debit' },
+      
+      // APRIL
+      { bulan: 'APRIL', tanggal: '-', keterangan: 'BIAYA LISTRIK UNIT AIR', debet: 0, kredit: 103000, saldo: 44474640, jenis: 'credit' },
+      { bulan: 'APRIL', tanggal: '-', keterangan: 'PENDAPATAN UNIT AIR BERSIH', debet: 7728000, kredit: 0, saldo: 52202640, jenis: 'debit' },
+      
+      // MEI
+      { bulan: 'MEI', tanggal: '08 Mei 2025', keterangan: 'BIAYA LISTRIK UNIT AIR BERSIH', debet: 0, kredit: 103000, saldo: 52099640, jenis: 'credit' },
+      { bulan: 'MEI', tanggal: '-', keterangan: 'PENDAPATAN UNIT AIR BERSIH', debet: 7920000, kredit: 0, saldo: 60019640, jenis: 'debit' },
+      
+      // JUNI
+      { bulan: 'JUNI', tanggal: '08 Juni 2025', keterangan: 'BIAYA LISTRIK UNIT AIR BERSIH', debet: 0, kredit: 103500, saldo: 59916140, jenis: 'credit' },
+      { bulan: 'JUNI', tanggal: '-', keterangan: 'PENDAPATAN UNIT AIR BERSIH', debet: 7968000, kredit: 0, saldo: 67884140, jenis: 'debit' },
+    ];
+
+    // Default configuration
+    const defaultConfig = {
+      report_title: 'LAPORAN BUKU KAS',
+      organization_name: 'Badan Usaha Milik Desa',
+      background_color: '#f1f5f9',
+      header_color: '#1e40af',
+      text_color: '#334155',
+      accent_color: '#3b82f6',
+      surface_color: '#ffffff'
+    };
+
+    // Transaksi baru (disimpan di memory)
+    let newTransactions = [];
+
+    // State untuk edit
+    let editingTransactionId = null;
+    let editingIsFromMain = false;
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Render transactions
+    function renderTransactions() {
+      const tbody = document.getElementById('transaction-table');
+      tbody.innerHTML = '';
+      
+      transactions.forEach(tx => {
+        const tr = document.createElement('tr');
+        let rowClass = 'hover:bg-slate-50 transition-colors';
+        
+        if (tx.jenis === 'saldo') {
+          rowClass = 'row-saldo hover:bg-blue-50/50 transition-colors';
+        } else if (tx.jenis === 'credit') {
+          rowClass = 'row-credit hover:bg-slate-50 transition-colors';
+        } else if (tx.jenis === 'debit') {
+          rowClass = 'row-debit hover:bg-green-50/50 transition-colors';
+        }
+        
+        tr.className = rowClass;
+        const debetDisplay = tx.debet > 0 ? `Rp ${tx.debet.toLocaleString('id-ID')}` : '-';
+        const kreditDisplay = tx.kredit > 0 ? `Rp ${tx.kredit.toLocaleString('id-ID')}` : '-';
+        const debetClass = tx.debet > 0 ? 'font-medium text-green-600' : 'text-slate-400';
+        const kreditClass = tx.kredit > 0 ? 'font-medium text-red-500' : 'text-slate-400';
+        
+        // Tombol aksi hanya untuk transaksi yang bukan saldo
+        let actionButton = '';
+        if (tx.jenis !== 'saldo') {
+          const txIndex = transactions.indexOf(tx);
+          actionButton = `
+            <div class="flex gap-2">
+              <button onclick="editTransactionFromMain('${tx.keterangan}', ${tx.debet}, ${tx.kredit}, '${tx.tanggal}')" class="inline-flex items-center gap-1 bg-blue-100 hover:bg-blue-200 active:scale-95 text-blue-600 px-3 py-1 rounded text-xs font-medium transition-all no-print">
+                <i data-lucide="edit" class="w-3 h-3"></i> Edit
+              </button>
+              <button onclick="deleteTransactionFromMain(${txIndex})" class="inline-flex items-center gap-1 bg-red-100 hover:bg-red-200 active:scale-95 text-red-600 px-3 py-1 rounded text-xs font-medium transition-all no-print">
+                <i data-lucide="trash-2" class="w-3 h-3"></i> Hapus
+              </button>
+            </div>
+          `;
+        }
+        
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-sm text-slate-500">${tx.bulan}</td>
+          <td class="px-4 py-3 text-sm text-slate-400">${tx.tanggal}</td>
+          <td class="px-4 py-3 text-sm text-slate-700">${tx.keterangan}</td>
+          <td class="px-4 py-3 text-sm text-center text-slate-400">-</td>
+          <td class="px-4 py-3 text-sm text-right ${debetClass}">${debetDisplay}</td>
+          <td class="px-4 py-3 text-sm text-right ${kreditClass}">${kreditDisplay}</td>
+          <td class="px-4 py-3 text-sm text-right font-semibold text-slate-700">Rp ${tx.saldo.toLocaleString('id-ID')}</td>
+          <td class="px-4 py-3 text-center">${actionButton}</td>
+        `;
+        
+        tbody.appendChild(tr);
+      });
+      
+      lucide.createIcons();
+    }
+
+    // Calculate monthly summary
+    function getMonthlySummary() {
+      const summary = {};
+      
+      transactions.forEach(tx => {
+        if (!summary[tx.bulan]) {
+          summary[tx.bulan] = {
+            bulan: tx.bulan,
+            totalDebet: 0,
+            totalKredit: 0,
+            saldoAkhir: 0,
+            transactionCount: 0
+          };
+        }
+        
+        if (tx.jenis !== 'saldo') {
+          summary[tx.bulan].totalDebet += tx.debet;
+          summary[tx.bulan].totalKredit += tx.kredit;
+          summary[tx.bulan].transactionCount++;
+        }
+        
+        summary[tx.bulan].saldoAkhir = tx.saldo;
+      });
+      
+      return Object.values(summary);
+    }
+
+    // Toggle monthly summary view
+    window.toggleMonthlyView = function() {
+      const summaryDiv = document.getElementById('monthly-summary');
+      const btn = document.getElementById('btn-monthly-toggle');
+      
+      summaryDiv.classList.toggle('hidden');
+      btn.classList.toggle('bg-blue-100', !summaryDiv.classList.contains('hidden'));
+      btn.classList.toggle('bg-slate-200', summaryDiv.classList.contains('hidden'));
+      
+      if (!summaryDiv.classList.contains('hidden')) {
+        renderMonthlySummary();
+      }
+    }
+
+    // Render monthly summary cards
+    function renderMonthlySummary() {
+      const summary = getMonthlySummary();
+      const container = document.getElementById('monthly-cards');
+      container.innerHTML = '';
+      
+      summary.forEach(month => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer';
+        
+        const totalIn = month.totalDebet;
+        const totalOut = month.totalKredit;
+        const difference = totalIn - totalOut;
+        const differenceClass = difference >= 0 ? 'text-green-600' : 'text-red-500';
+        
+        card.innerHTML = `
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold text-slate-800">${month.bulan}</h4>
+            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${month.transactionCount} transaksi</span>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-slate-600">Pemasukan:</span>
+              <span class="font-medium text-green-600">Rp ${totalIn.toLocaleString('id-ID')}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Pengeluaran:</span>
+              <span class="font-medium text-red-500">Rp ${totalOut.toLocaleString('id-ID')}</span>
+            </div>
+            <div class="border-t pt-2 flex justify-between font-semibold">
+              <span class="text-slate-700">Selisih:</span>
+              <span class="${differenceClass}">Rp ${difference.toLocaleString('id-ID')}</span>
+            </div>
+            <div class="border-t pt-2 flex justify-between">
+              <span class="text-slate-700">Saldo Akhir:</span>
+              <span class="font-bold text-blue-600">Rp ${month.saldoAkhir.toLocaleString('id-ID')}</span>
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    // Export to PDF
+    window.exportToPDF = function() {
+      const title = document.getElementById('report-title').textContent;
+      const orgName = document.getElementById('org-name').textContent;
+      
+      let pdfContent = `${title}\n${orgName}\nPeriode: Januari - Juni 2025\n\n`;
+      pdfContent += 'Laporan Buku Kas berhasil diekspor!\n';
+      
+      const blob = new Blob([pdfContent], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Laporan_Buku_Kas_${new Date().getTime()}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    // Render on load
+    renderTransactions();
+
+    // Fungsi untuk switch halaman
+    window.switchPage = function(page) {
+      const laporan = document.getElementById('page-laporan');
+      const input = document.getElementById('page-input');
+      const btnLaporan = document.querySelector('.page-btn-laporan');
+      const btnInput = document.querySelector('.page-btn-input');
+
+      if (page === 'laporan') {
+        input.classList.add('hidden');
+        laporan.classList.remove('hidden');
+        
+        btnLaporan.classList.remove('bg-slate-300', 'hover:bg-slate-400', 'text-slate-800', 'shadow-none');
+        btnLaporan.classList.add('bg-blue-600', 'hover:bg-blue-700', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
+        btnInput.classList.remove('bg-green-600', 'hover:bg-green-700', 'text-white', 'shadow-lg', 'shadow-green-500/30');
+        btnInput.classList.add('bg-slate-300', 'hover:bg-slate-400', 'text-slate-800', 'shadow-none');
+        
+        document.getElementById('edit-info').style.display = 'none';
+      } else {
+        laporan.classList.add('hidden');
+        input.classList.remove('hidden');
+        
+        btnLaporan.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
+        btnLaporan.classList.add('bg-slate-300', 'hover:bg-slate-400', 'text-slate-800', 'shadow-none');
+        btnInput.classList.remove('bg-slate-300', 'hover:bg-slate-400', 'text-slate-800', 'shadow-none');
+        btnInput.classList.add('bg-green-600', 'hover:bg-green-700', 'text-white', 'shadow-lg', 'shadow-green-500/30');
+      }
+      lucide.createIcons();
+    }
+
+    // Fungsi tambah transaksi
+    window.addTransaction = function(event) {
+      event.preventDefault();
+
+      const bulan = document.getElementById('input-bulan').value;
+      const tanggal = document.getElementById('input-tanggal').value;
+      const keterangan = document.getElementById('input-keterangan').value;
+      const nobukti = document.getElementById('input-nobukti').value;
+      const tipe = document.getElementById('input-tipe').value;
+      const jumlah = parseInt(document.getElementById('input-jumlah').value) || 0;
+
+      if (!bulan || !tanggal || !keterangan || !tipe || jumlah === 0) {
+        showErrorMessage('Silakan isi semua field yang wajib diisi!');
+        return;
+      }
+
+      // Format tanggal
+      const dateObj = new Date(tanggal);
+      const tanggalFormat = dateObj.toLocaleDateString('id-ID', { 
+        day: '2-digit', 
+        month: 'long', 
+        year: 'numeric' 
+      });
+
+      // Jika sedang mengedit dari laporan, update data di array transaksi utama
+      if (editingIsFromMain && editingTransactionId !== null) {
+        const txIndex = transactions.findIndex(t => 
+          t.keterangan === editingTransactionId && t.jenis !== 'saldo'
+        );
+        
+        if (txIndex !== -1) {
+          transactions[txIndex] = {
+            ...transactions[txIndex],
+            bulan: bulan,
+            tanggal: tanggalFormat,
+            keterangan: keterangan,
+            debet: tipe === 'debet' ? jumlah : 0,
+            kredit: tipe === 'kredit' ? jumlah : 0,
+            jenis: tipe
+          };
+          
+          renderTransactions();
+          editingTransactionId = null;
+          editingIsFromMain = false;
+          document.getElementById('edit-info').style.display = 'none';
+          showSuccessMessage('Transaksi berhasil diperbarui!');
+        }
+      } else {
+        // Buat object transaksi baru
+        const newTx = {
+          id: Date.now(),
+          bulan: bulan,
+          tanggal: tanggalFormat,
+          keterangan: keterangan,
+          nobukti: nobukti || '-',
+          debet: tipe === 'debet' ? jumlah : 0,
+          kredit: tipe === 'kredit' ? jumlah : 0,
+          jenis: tipe
+        };
+
+        // Tambah ke array
+        newTransactions.push(newTx);
+        
+        // Update tampilan
+        renderNewTransactions();
+        
+        // Tampilkan notifikasi sukses
+        showSuccessMessage('Transaksi berhasil ditambahkan!');
+      }
+
+      // Reset form
+      document.getElementById('transaction-form').reset();
+    }
+
+    // Fungsi render transaksi baru
+    function renderNewTransactions() {
+      const tbody = document.getElementById('new-transaction-table');
+      const count = document.getElementById('new-tx-count');
+
+      if (newTransactions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-slate-500 text-sm">Belum ada transaksi baru. Silakan tambahkan transaksi di form di atas.</td></tr>';
+        count.textContent = '0';
+        return;
+      }
+
+      count.textContent = newTransactions.length;
+      tbody.innerHTML = '';
+
+      newTransactions.forEach(tx => {
+        const tr = document.createElement('tr');
+        const rowClass = tx.jenis === 'debet' ? 'row-debit' : 'row-credit';
+        tr.className = rowClass + ' hover:bg-slate-50 transition-colors';
+
+        const debetDisplay = tx.debet > 0 ? `Rp ${tx.debet.toLocaleString('id-ID')}` : '-';
+        const kreditDisplay = tx.kredit > 0 ? `Rp ${tx.kredit.toLocaleString('id-ID')}` : '-';
+
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-sm text-slate-500 font-medium">${tx.bulan}</td>
+          <td class="px-4 py-3 text-sm text-slate-400">${tx.tanggal}</td>
+          <td class="px-4 py-3 text-sm text-slate-700">${tx.keterangan}</td>
+          <td class="px-4 py-3 text-sm text-center text-slate-400">${tx.nobukti}</td>
+          <td class="px-4 py-3 text-sm text-right font-medium text-green-600">${debetDisplay}</td>
+          <td class="px-4 py-3 text-sm text-right font-medium text-red-500">${kreditDisplay}</td>
+          <td class="px-4 py-3 text-center">
+            <button onclick="deleteTransaction(${tx.id})" class="inline-flex items-center gap-1 bg-red-100 hover:bg-red-200 active:scale-95 text-red-600 px-3 py-1 rounded text-xs font-medium transition-all">
+              <i data-lucide="trash-2" class="w-3 h-3"></i> Hapus
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Fungsi hapus transaksi
+    window.deleteTransaction = function(id) {
+      newTransactions = newTransactions.filter(tx => tx.id !== id);
+      renderNewTransactions();
+      showSuccessMessage('Transaksi berhasil dihapus!');
+    }
+
+    // Fungsi edit transaksi dari halaman Laporan
+    window.editTransactionFromMain = function(keterangan, debet, kredit, tanggal) {
+      editingTransactionId = keterangan;
+      editingIsFromMain = true;
+
+      // Isi form dengan data transaksi
+      document.getElementById('input-keterangan').value = keterangan;
+      document.getElementById('input-jumlah').value = debet > 0 ? debet : kredit;
+      document.getElementById('input-tipe').value = debet > 0 ? 'debet' : 'kredit';
+      
+      // Parse tanggal dan isi form
+      const tanggalParts = tanggal.split(' ');
+      if (tanggalParts.length >= 1) {
+        const day = tanggalParts[0];
+        document.getElementById('input-tanggal').value = day;
+      }
+
+      // Tampilkan notifikasi edit
+      document.getElementById('edit-info').style.display = 'block';
+      
+      // Pindah ke halaman input
+      switchPage('input');
+      
+      showSuccessMessage('Mode Edit: Ubah data dan klik "Simpan Transaksi" untuk menyimpan perubahan');
+    }
+
+    // Fungsi hapus transaksi dari halaman Laporan
+    window.deleteTransactionFromMain = function(index) {
+      const tx = transactions[index];
+      
+      // Jangan bisa hapus saldo awal
+      if (tx.jenis === 'saldo') {
+        showErrorMessage('Tidak bisa menghapus Saldo Awal!');
+        return;
+      }
+
+      // Konfirmasi inline dengan tombol temporary
+      const tbody = document.getElementById('transaction-table');
+      const rows = tbody.querySelectorAll('tr');
+      const rowToConfirm = rows[index];
+      
+      if (!rowToConfirm) return;
+
+      // Simpan referensi ke cell dan content original
+      const originalCell = rowToConfirm.querySelector('td:last-child');
+      const originalContent = originalCell.innerHTML;
+      
+      // Simpan ke data attribute untuk recovery
+      originalCell.dataset.originalContent = 'stored';
+
+      // Tampilkan konfirmasi inline
+      const confirmDiv = document.createElement('div');
+      confirmDiv.className = 'flex gap-2';
+      confirmDiv.innerHTML = `
+        <button class="inline-flex items-center gap-1 bg-green-100 hover:bg-green-200 active:scale-95 text-green-600 px-3 py-1 rounded text-xs font-medium transition-all">
+          <i data-lucide="check" class="w-3 h-3"></i> Ya
+        </button>
+        <button class="inline-flex items-center gap-1 bg-gray-100 hover:bg-gray-200 active:scale-95 text-gray-600 px-3 py-1 rounded text-xs font-medium transition-all">
+          <i data-lucide="x" class="w-3 h-3"></i> Tidak
+        </button>
+      `;
+      
+      // Tambah event listener
+      const yesBtn = confirmDiv.querySelector('button:first-child');
+      const noBtn = confirmDiv.querySelector('button:last-child');
+      
+      yesBtn.addEventListener('click', () => {
+        transactions.splice(index, 1);
+        renderTransactions();
+        showSuccessMessage('Transaksi berhasil dihapus!');
+      });
+      
+      noBtn.addEventListener('click', () => {
+        originalCell.innerHTML = originalContent;
+        lucide.createIcons();
+      });
+      
+      originalCell.innerHTML = '';
+      originalCell.appendChild(confirmDiv);
+      lucide.createIcons();
+    }
+
+    // Fungsi tampilkan pesan sukses
+    function showSuccessMessage(msg) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg no-print z-50 animate-pulse';
+      msgDiv.textContent = msg;
+      document.body.appendChild(msgDiv);
+
+      setTimeout(() => {
+        msgDiv.remove();
+      }, 3000);
+    }
+
+    // Fungsi tampilkan pesan error
+    function showErrorMessage(msg) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'fixed top-20 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg no-print z-50 animate-pulse';
+      msgDiv.textContent = msg;
+      document.body.appendChild(msgDiv);
+
+      setTimeout(() => {
+        msgDiv.remove();
+      }, 3000);
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const titleEl = document.getElementById('report-title');
+          if (titleEl) {
+            titleEl.textContent = config.report_title || defaultConfig.report_title;
+          }
+
+          const orgEl = document.getElementById('org-name');
+          if (orgEl) {
+            orgEl.textContent = config.organization_name || defaultConfig.organization_name;
+          }
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.header_color || defaultConfig.header_color,
+              set: (value) => {
+                config.header_color = value;
+                window.elementSdk.setConfig({ header_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['report_title', config.report_title || defaultConfig.report_title],
+          ['organization_name', config.organization_name || defaultConfig.organization_name]
+        ])
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d837a8c24edaa1c',t:'MTc3MjgyMjMyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
