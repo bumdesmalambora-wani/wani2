@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUMDes Malambora Wani</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .gradient-hero {
+      background: linear-gradient(135deg, #0d5c3f 0%, #1a8b5a 50%, #2eb872 100%);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #f59e0b;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+    }
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      border-radius: 2px;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-jakarta bg-gray-50 overflow-auto">
+  <div class="w-full min-h-full"><!-- Navigation -->
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-20"><!-- Logo -->
+      <div class="flex items-center gap-3">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+        <svg class="w-7 h-7 text-white" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
+        </svg>
+       </div>
+       <div>
+        <h1 id="nav-title" class="text-xl font-bold text-white">BUMDes Malambora Wani</h1>
+        <p class="text-xs text-white/70">Desa Sejahtera, Rakyat Makmur</p>
+       </div>
+      </div><!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-8"><a href="#beranda" class="nav-link text-white/90 hover:text-white font-medium">Beranda</a> <a href="#tentang" class="nav-link text-white/90 hover:text-white font-medium">Tentang</a> <a href="#usaha" class="nav-link text-white/90 hover:text-white font-medium">Unit Usaha</a> <a href="#layanan" class="nav-link text-white/90 hover:text-white font-medium">Layanan</a> <a href="#galeri" class="nav-link text-white/90 hover:text-white font-medium">Galeri</a> <a href="#kontak" class="nav-link text-white/90 hover:text-white font-medium">Kontak</a>
+      </div><!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-white/10 text-white"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-emerald-800/95 backdrop-blur-lg">
+     <div class="px-4 py-4 space-y-2"><a href="#beranda" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Beranda</a> <a href="#tentang" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Tentang</a> <a href="#usaha" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Unit Usaha</a> <a href="#layanan" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Layanan</a> <a href="#galeri" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Galeri</a> <a href="#kontak" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Kontak</a>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="beranda" class="gradient-hero relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+     <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><defs>
+       <pattern id="grid" width="10" height="10" patternunits="userSpaceOnUse">
+        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" />
+       </pattern>
+      </defs> <rect width="100" height="100" fill="url(#grid)" />
+     </svg>
+    </div><!-- Floating Elements -->
+    <div class="absolute top-32 left-10 w-20 h-20 bg-amber-400/20 rounded-full animate-float"></div>
+    <div class="absolute bottom-20 right-20 w-32 h-32 bg-white/10 rounded-full animate-float" style="animation-delay: -3s;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+     <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="animate-fade-in">
+       <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-amber-300 text-sm font-medium mb-6"><i data-lucide="sparkles" class="w-4 h-4"></i> <span>Badan Usaha Milik Desa</span>
+       </div>
+       <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">BUMDes<br><span class="text-amber-400">Malambora Wani</span></h1>
+       <p id="hero-tagline" class="text-xl text-white/80 mb-8 leading-relaxed">Membangun Desa, Mensejahterakan Rakyat. Bersama memajukan ekonomi desa melalui unit usaha yang produktif dan berkelanjutan.</p>
+       <div class="flex flex-wrap gap-4"><a href="#usaha" class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-emerald-900 font-bold rounded-xl transition-all shadow-lg shadow-amber-500/30"> <span>Lihat Unit Usaha</span> <i data-lucide="arrow-right" class="w-5 h-5"></i> </a> <a href="#kontak" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/20"> <i data-lucide="phone" class="w-5 h-5"></i> <span>Hubungi Kami</span> </a>
+       </div>
+      </div><!-- Stats Cards -->
+      <div class="grid grid-cols-2 gap-4">
+       <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-extrabold text-amber-400 mb-2">
+         5+
+        </div>
+        <div class="text-white/80 text-sm">
+         Unit Usaha Aktif
+        </div>
+       </div>
+       <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-extrabold text-amber-400 mb-2">
+         500+
+        </div>
+        <div class="text-white/80 text-sm">
+         Warga Terlayani
+        </div>
+       </div>
+       <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-extrabold text-amber-400 mb-2">
+         10+
+        </div>
+        <div class="text-white/80 text-sm">
+         Tahun Berdiri
+        </div>
+       </div>
+       <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="text-4xl font-extrabold text-amber-400 mb-2">
+         100%
+        </div>
+        <div class="text-white/80 text-sm">
+         Untuk Desa
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Wave -->
+    <div class="absolute bottom-0 left-0 right-0">
+     <svg viewbox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f9fafb" />
+     </svg>
+    </div>
+   </section><!-- Tentang Section -->
+   <section id="tentang" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Tentang Kami</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-8">Mengenal lebih dekat BUMDes Malambora Wani dan komitmen kami untuk kemajuan desa</p>
+     </div>
+     <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+       <div class="aspect-square rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-800 p-8 flex items-center justify-center">
+        <svg class="w-48 h-48 text-white/90" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z" /> <path d="M2 17l10 5 10-5" /> <path d="M2 12l10 5 10-5" />
+        </svg>
+       </div>
+       <div class="absolute -bottom-6 -right-6 bg-amber-400 rounded-2xl p-6 shadow-xl">
+        <div class="text-3xl font-extrabold text-emerald-900">
+         2014
+        </div>
+        <div class="text-emerald-800 text-sm font-medium">
+         Tahun Berdiri
+        </div>
+       </div>
+      </div>
+      <div>
+       <h3 class="text-2xl font-bold text-gray-900 mb-6">Membangun Ekonomi Desa yang Mandiri</h3>
+       <p class="text-gray-600 mb-6 leading-relaxed">BUMDes Malambora Wani didirikan dengan semangat kemandirian dan gotong royong untuk memajukan perekonomian desa. Kami berkomitmen menyediakan layanan terbaik bagi seluruh warga desa.</p>
+       <div class="space-y-4">
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0"><i data-lucide="target" class="w-6 h-6 text-emerald-600"></i>
+         </div>
+         <div>
+          <h4 class="font-bold text-gray-900 mb-1">Visi</h4>
+          <p class="text-gray-600 text-sm">Menjadi BUMDes terdepan dalam pemberdayaan ekonomi masyarakat desa yang berkelanjutan.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0"><i data-lucide="compass" class="w-6 h-6 text-amber-600"></i>
+         </div>
+         <div>
+          <h4 class="font-bold text-gray-900 mb-1">Misi</h4>
+          <p class="text-gray-600 text-sm">Mengembangkan unit usaha produktif, memberdayakan UMKM lokal, dan meningkatkan kesejahteraan warga.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0"><i data-lucide="heart-handshake" class="w-6 h-6 text-blue-600"></i>
+         </div>
+         <div>
+          <h4 class="font-bold text-gray-900 mb-1">Nilai</h4>
+          <p class="text-gray-600 text-sm">Integritas, Transparansi, Gotong Royong, dan Keberlanjutan.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Unit Usaha Section -->
+   <section id="usaha" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Unit Usaha</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-8">Berbagai unit usaha yang kami kelola untuk memajukan ekonomi desa</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Unit 1 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center"><i data-lucide="droplets" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pengelolaan Air Bersih</h3>
+        <p class="text-gray-600 text-sm mb-4">Penyediaan dan distribusi air bersih untuk seluruh warga desa dengan kualitas terjamin.</p>
+        <div class="flex items-center text-emerald-600 font-medium text-sm"><span>Aktif</span> <i data-lucide="check-circle" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div><!-- Unit 2 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center"><i data-lucide="shopping-bag" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Toko Desa</h3>
+        <p class="text-gray-600 text-sm mb-4">Menyediakan kebutuhan pokok sehari-hari dengan harga terjangkau untuk warga desa.</p>
+        <div class="flex items-center text-emerald-600 font-medium text-sm"><span>Aktif</span> <i data-lucide="check-circle" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div><!-- Unit 3 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center"><i data-lucide="wheat" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pertanian Terpadu</h3>
+        <p class="text-gray-600 text-sm mb-4">Pengelolaan lahan pertanian dengan sistem modern dan ramah lingkungan.</p>
+        <div class="flex items-center text-emerald-600 font-medium text-sm"><span>Aktif</span> <i data-lucide="check-circle" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div><!-- Unit 4 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center"><i data-lucide="banknote" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Simpan Pinjam</h3>
+        <p class="text-gray-600 text-sm mb-4">Layanan keuangan mikro untuk membantu permodalan usaha warga desa.</p>
+        <div class="flex items-center text-emerald-600 font-medium text-sm"><span>Aktif</span> <i data-lucide="check-circle" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div><!-- Unit 5 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-rose-500 to-rose-700 flex items-center justify-center"><i data-lucide="truck" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Jasa Angkutan</h3>
+        <p class="text-gray-600 text-sm mb-4">Layanan transportasi dan logistik untuk memperlancar aktivitas ekonomi desa.</p>
+        <div class="flex items-center text-emerald-600 font-medium text-sm"><span>Aktif</span> <i data-lucide="check-circle" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div><!-- Unit 6 -->
+      <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+       <div class="h-48 bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center"><i data-lucide="home" class="w-20 h-20 text-white/90"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Wisata Desa</h3>
+        <p class="text-gray-600 text-sm mb-4">Pengembangan potensi wisata lokal untuk meningkatkan pendapatan desa.</p>
+        <div class="flex items-center text-amber-600 font-medium text-sm"><span>Dalam Pengembangan</span> <i data-lucide="clock" class="w-4 h-4 ml-2"></i>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Layanan Section -->
+   <section id="layanan" class="py-20 bg-emerald-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+     <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><circle cx="20" cy="20" r="20" fill="white" /> <circle cx="80" cy="80" r="30" fill="white" />
+     </svg>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-white mb-4">Layanan Kami</h2>
+      <p class="text-emerald-200 max-w-2xl mx-auto mt-8">Berbagai layanan yang kami sediakan untuk kemudahan warga desa</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all">
+       <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400 flex items-center justify-center mb-4"><i data-lucide="file-text" class="w-8 h-8 text-emerald-900"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2">Administrasi Desa</h3>
+       <p class="text-emerald-200 text-sm">Pengurusan surat dan dokumen resmi desa</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all">
+       <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400 flex items-center justify-center mb-4"><i data-lucide="credit-card" class="w-8 h-8 text-emerald-900"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2">Pembayaran</h3>
+       <p class="text-emerald-200 text-sm">Pembayaran tagihan listrik, air, dan lainnya</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all">
+       <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400 flex items-center justify-center mb-4"><i data-lucide="graduation-cap" class="w-8 h-8 text-emerald-900"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2">Pelatihan</h3>
+       <p class="text-emerald-200 text-sm">Program pelatihan keterampilan warga</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all">
+       <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400 flex items-center justify-center mb-4"><i data-lucide="hand-helping" class="w-8 h-8 text-emerald-900"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2">Bantuan UMKM</h3>
+       <p class="text-emerald-200 text-sm">Pendampingan dan modal untuk UMKM</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Galeri Section -->
+   <section id="galeri" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Galeri Kegiatan</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-8">Dokumentasi berbagai kegiatan BUMDes Malambora Wani</p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center group cursor-pointer overflow-hidden">
+       <div class="text-center p-4"><i data-lucide="users" class="w-12 h-12 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white text-sm font-medium">Musyawarah Desa</p>
+       </div>
+      </div>
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center group cursor-pointer overflow-hidden">
+       <div class="text-center p-4"><i data-lucide="award" class="w-12 h-12 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white text-sm font-medium">Penghargaan</p>
+       </div>
+      </div>
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group cursor-pointer overflow-hidden">
+       <div class="text-center p-4"><i data-lucide="sprout" class="w-12 h-12 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white text-sm font-medium">Program Pertanian</p>
+       </div>
+      </div>
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center group cursor-pointer overflow-hidden">
+       <div class="text-center p-4"><i data-lucide="book-open" class="w-12 h-12 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white text-sm font-medium">Pelatihan</p>
+       </div>
+      </div>
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center group cursor-pointer overflow-hidden md:col-span-2">
+       <div class="text-center p-4"><i data-lucide="handshake" class="w-16 h-16 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white font-medium">Kerjasama Antar Desa</p>
+       </div>
+      </div>
+      <div class="aspect-square rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center group cursor-pointer overflow-hidden md:col-span-2">
+       <div class="text-center p-4"><i data-lucide="store" class="w-16 h-16 text-white/90 mx-auto mb-2"></i>
+        <p class="text-white font-medium">Peresmian Toko Desa</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Struktur Organisasi -->
+   <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Struktur Organisasi</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-8">Pengurus BUMDes Malambora Wani periode 2024-2029</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"><!-- Direktur -->
+      <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-6 text-center border-2 border-emerald-200">
+       <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center mb-4"><i data-lucide="user" class="w-12 h-12 text-white"></i>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">H. Ahmad Sudirman</h3>
+       <p class="text-emerald-600 font-medium text-sm">Direktur</p>
+      </div><!-- Sekretaris -->
+      <div class="bg-gray-50 rounded-2xl p-6 text-center border border-gray-200">
+       <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center mb-4"><i data-lucide="user" class="w-12 h-12 text-white"></i>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">Siti Rahmawati</h3>
+       <p class="text-blue-600 font-medium text-sm">Sekretaris</p>
+      </div><!-- Bendahara -->
+      <div class="bg-gray-50 rounded-2xl p-6 text-center border border-gray-200">
+       <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center mb-4"><i data-lucide="user" class="w-12 h-12 text-white"></i>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">Muh. Fadli Rahman</h3>
+       <p class="text-amber-600 font-medium text-sm">Bendahara</p>
+      </div><!-- Pengawas -->
+      <div class="bg-gray-50 rounded-2xl p-6 text-center border border-gray-200">
+       <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center mb-4"><i data-lucide="user" class="w-12 h-12 text-white"></i>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">Kepala Desa</h3>
+       <p class="text-purple-600 font-medium text-sm">Pengawas</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Kontak Section -->
+   <section id="kontak" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Hubungi Kami</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-8">Silakan hubungi kami untuk informasi lebih lanjut</p>
+     </div>
+     <div class="grid lg:grid-cols-2 gap-12"><!-- Contact Info -->
+      <div>
+       <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
+        <div class="space-y-6">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-gray-900 mb-1">Alamat</h4>
+           <p id="info-alamat" class="text-gray-600 text-sm">Desa Malambora, Kec. Wani, Kab. Donggala, Sulawesi Tengah</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0"><i data-lucide="phone" class="w-6 h-6 text-amber-600"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-gray-900 mb-1">Telepon</h4>
+           <p id="info-telepon" class="text-gray-600 text-sm">+62 812-3456-7890</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0"><i data-lucide="mail" class="w-6 h-6 text-blue-600"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-gray-900 mb-1">Email</h4>
+           <p id="info-email" class="text-gray-600 text-sm">bumdes@malamborawani.desa.id</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-6 h-6 text-purple-600"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-gray-900 mb-1">Jam Operasional</h4>
+           <p class="text-gray-600 text-sm">Senin - Jumat: 08.00 - 16.00 WITA<br>
+            Sabtu: 08.00 - 12.00 WITA</p>
+          </div>
+         </div>
+        </div><!-- Social Media -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+         <h4 class="font-bold text-gray-900 mb-4">Ikuti Kami</h4>
+         <div class="flex gap-3"><a href="#" class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors"> <i data-lucide="facebook" class="w-5 h-5"></i> </a> <a href="#" class="w-10 h-10 rounded-lg bg-pink-600 flex items-center justify-center text-white hover:bg-pink-700 transition-colors"> <i data-lucide="instagram" class="w-5 h-5"></i> </a> <a href="#" class="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white hover:bg-green-700 transition-colors"> <i data-lucide="message-circle" class="w-5 h-5"></i> </a> <a href="#" class="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center text-white hover:bg-red-700 transition-colors"> <i data-lucide="youtube" class="w-5 h-5"></i> </a>
+         </div>
+        </div>
+       </div>
+      </div><!-- Contact Form -->
+      <div>
+       <form id="contact-form" class="bg-white rounded-2xl shadow-lg p-8">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Kirim Pesan</h3>
+        <div class="space-y-4">
+         <div><label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label> <input type="text" id="nama" name="nama" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all" placeholder="Masukkan nama lengkap">
+         </div>
+         <div><label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label> <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all" placeholder="Masukkan email">
+         </div>
+         <div><label for="subjek" class="block text-sm font-medium text-gray-700 mb-2">Subjek</label> <select id="subjek" name="subjek" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"> <option value="">Pilih subjek</option> <option value="informasi">Informasi Umum</option> <option value="layanan">Layanan BUMDes</option> <option value="kerjasama">Kerjasama</option> <option value="lainnya">Lainnya</option> </select>
+         </div>
+         <div><label for="pesan" class="block text-sm font-medium text-gray-700 mb-2">Pesan</label> <textarea id="pesan" name="pesan" rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none" placeholder="Tulis pesan Anda"></textarea>
+         </div><button type="submit" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2"> <i data-lucide="send" class="w-5 h-5"></i> <span>Kirim Pesan</span> </button>
+        </div>
+        <div id="form-success" class="hidden mt-4 p-4 bg-emerald-100 text-emerald-700 rounded-xl text-center font-medium"><i data-lucide="check-circle" class="w-5 h-5 inline mr-2"></i> Pesan berhasil dikirim! Kami akan segera merespons.
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"><!-- Brand -->
+      <div class="lg:col-span-2">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+         <svg class="w-7 h-7 text-white" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
+         </svg>
+        </div>
+        <div>
+         <h3 id="footer-title" class="text-xl font-bold">BUMDes Malambora Wani</h3>
+         <p class="text-gray-400 text-sm">Membangun Desa, Mensejahterakan Rakyat</p>
+        </div>
+       </div>
+       <p class="text-gray-400 text-sm leading-relaxed max-w-md">Badan Usaha Milik Desa Malambora Wani hadir untuk memajukan perekonomian desa dan mensejahterakan seluruh warga melalui berbagai unit usaha yang produktif dan berkelanjutan.</p>
+      </div><!-- Quick Links -->
+      <div>
+       <h4 class="font-bold text-white mb-4">Tautan Cepat</h4>
+       <ul class="space-y-2">
+        <li><a href="#beranda" class="text-gray-400 hover:text-amber-400 text-sm transition-colors">Beranda</a></li>
+        <li><a href="#tentang" class="text-gray-400 hover:text-amber-400 text-sm transition-colors">Tentang</a></li>
+        <li><a href="#usaha" class="text-gray-400 hover:text-amber-400 text-sm transition-colors">Unit Usaha</a></li>
+        <li><a href="#layanan" class="text-gray-400 hover:text-amber-400 text-sm transition-colors">Layanan</a></li>
+        <li><a href="#kontak" class="text-gray-400 hover:text-amber-400 text-sm transition-colors">Kontak</a></li>
+       </ul>
+      </div><!-- Contact -->
+      <div>
+       <h4 class="font-bold text-white mb-4">Kontak</h4>
+       <ul class="space-y-2 text-gray-400 text-sm">
+        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> <span>Desa Malambora, Kec. Wani</span></li>
+        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> <span>+62 812-3456-7890</span></li>
+        <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> <span>bumdes@malamborawani.desa.id</span></li>
+       </ul>
+      </div>
+     </div>
+     <div class="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-400 text-sm text-center sm:text-left">© 2024 BUMDes Malambora Wani. Hak Cipta Dilindungi.</p>
+      <p class="text-gray-500 text-xs">Dikembangkan dengan ❤️ untuk kemajuan desa</p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      nama_bumdes: 'BUMDes Malambora Wani',
+      tagline: 'Membangun Desa, Mensejahterakan Rakyat. Bersama memajukan ekonomi desa melalui unit usaha yang produktif dan berkelanjutan.',
+      alamat: 'Desa Malambora, Kec. Wani, Kab. Donggala, Sulawesi Tengah',
+      telepon: '+62 812-3456-7890',
+      email: 'bumdes@malamborawani.desa.id',
+      background_color: '#0d5c3f',
+      surface_color: '#ffffff',
+      text_color: '#111827',
+      primary_action_color: '#f59e0b',
+      secondary_action_color: '#10b981'
+    };
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    mobileMenuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      lucide.createIcons();
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-emerald-800/95', 'backdrop-blur-lg', 'shadow-lg');
+        navbar.classList.remove('bg-transparent');
+      } else {
+        navbar.classList.remove('bg-emerald-800/95', 'backdrop-blur-lg', 'shadow-lg');
+        navbar.classList.add('bg-transparent');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Contact form handling
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Show success message
+      formSuccess.classList.remove('hidden');
+      lucide.createIcons();
+      
+      // Reset form
+      contactForm.reset();
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        formSuccess.classList.add('hidden');
+      }, 5000);
+    });
+
+    // Element SDK Integration
+    async function onConfigChange(config) {
+      // Update title elements
+      const navTitle = document.getElementById('nav-title');
+      const heroTitle = document.getElementById('hero-title');
+      const footerTitle = document.getElementById('footer-title');
+      
+      if (navTitle) navTitle.textContent = config.nama_bumdes || defaultConfig.nama_bumdes;
+      if (heroTitle) {
+        const parts = (config.nama_bumdes || defaultConfig.nama_bumdes).split(' ');
+        heroTitle.innerHTML = `${parts[0]}<br/><span class="text-amber-400">${parts.slice(1).join(' ')}</span>`;
+      }
+      if (footerTitle) footerTitle.textContent = config.nama_bumdes || defaultConfig.nama_bumdes;
+
+      // Update tagline
+      const heroTagline = document.getElementById('hero-tagline');
+      if (heroTagline) heroTagline.textContent = config.tagline || defaultConfig.tagline;
+
+      // Update contact info
+      const infoAlamat = document.getElementById('info-alamat');
+      const infoTelepon = document.getElementById('info-telepon');
+      const infoEmail = document.getElementById('info-email');
+      
+      if (infoAlamat) infoAlamat.textContent = config.alamat || defaultConfig.alamat;
+      if (infoTelepon) infoTelepon.textContent = config.telepon || defaultConfig.telepon;
+      if (infoEmail) infoEmail.textContent = config.email || defaultConfig.email;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              window.elementSdk.setConfig({ secondary_action_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['nama_bumdes', config.nama_bumdes || defaultConfig.nama_bumdes],
+        ['tagline', config.tagline || defaultConfig.tagline],
+        ['alamat', config.alamat || defaultConfig.alamat],
+        ['telepon', config.telepon || defaultConfig.telepon],
+        ['email', config.email || defaultConfig.email]
+      ]);
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d840bb4519c2ae6',t:'MTc3MjgyODI2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
