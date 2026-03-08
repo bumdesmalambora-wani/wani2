@@ -39,42 +39,52 @@
  <body class="h-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
   <div id="app-wrapper" class="h-full w-full overflow-auto">
    <div class="min-h-full flex items-center justify-center p-6">
-    <div class="w-full max-w-lg"><!-- Form Card -->
-     <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden" style="box-shadow: 0 20px 60px rgba(0,0,0,0.2); transform: translateY(0); transition: transform 0.3s ease;"><!-- Header -->
+    <div class="w-full max-w-lg">
+     <!-- Form Card -->
+     <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden" style="box-shadow: 0 20px 60px rgba(0,0,0,0.2); transform: translateY(0); transition: transform 0.3s ease;">
+      <!-- Header -->
       <div class="px-8 pt-8 pb-6 border-b border-gray-100" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);">
-       <div class="flex items-center gap-3"><img src="https://res.cloudinary.com/di8stbg60/image/upload/v1768368072/BUMDESWANI2_v58wgr.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover" style="box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+       <div class="flex items-center gap-3">
+        <img src="https://res.cloudinary.com/di8stbg60/image/upload/v1768368072/BUMDESWANI2_v58wgr.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover" style="box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
         <h1 id="form-title" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Input Data Keuangan</h1>
        </div>
       </div><!-- Form -->
-      <form id="finance-form" class="p-8 space-y-5"><!-- Tanggal -->
-       <div><label class="block text-sm font-medium text-gray-700 mb-3">Tanggal</label>
+      <form id="finance-form" class="p-8 space-y-5">
+       <!-- Tanggal -->
+       <div>
+        <label class="block text-sm font-medium text-gray-700 mb-3">Tanggal</label>
         <div class="grid grid-cols-3 gap-3">
-         <div>
-          <select id="tanggal-hari" name="tanggal-hari" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Tanggal</option> </select>
+         <div><select id="tanggal-hari" name="tanggal-hari" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Tanggal</option> </select>
          </div>
-         <div>
-          <select id="tanggal-bulan" name="tanggal-bulan" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Bulan</option> <option value="01">Januari</option> <option value="02">Februari</option> <option value="03">Maret</option> <option value="04">April</option> <option value="05">Mei</option> <option value="06">Juni</option> <option value="07">Juli</option> <option value="08">Agustus</option> <option value="09">September</option> <option value="10">Oktober</option> <option value="11">November</option> <option value="12">Desember</option> </select>
+         <div><select id="tanggal-bulan" name="tanggal-bulan" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Bulan</option> <option value="01">Januari</option> <option value="02">Februari</option> <option value="03">Maret</option> <option value="04">April</option> <option value="05">Mei</option> <option value="06">Juni</option> <option value="07">Juli</option> <option value="08">Agustus</option> <option value="09">September</option> <option value="10">Oktober</option> <option value="11">November</option> <option value="12">Desember</option> </select>
          </div>
-         <div>
-          <select id="tanggal-tahun" name="tanggal-tahun" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Tahun</option> </select>
+         <div><select id="tanggal-tahun" name="tanggal-tahun" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 font-medium hover:border-blue-300 bg-white"> <option value="">Tahun</option> </select>
          </div>
         </div>
        </div><!-- Keterangan -->
-       <div><label for="keterangan" class="block text-sm font-semibold text-gray-700 mb-2">Keterangan</label> <input type="text" id="keterangan" name="keterangan" required placeholder="Masukkan keterangan transaksi" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
+       <div>
+        <label for="keterangan" class="block text-sm font-semibold text-gray-700 mb-2">Keterangan</label> <input type="text" id="keterangan" name="keterangan" required placeholder="Masukkan keterangan transaksi" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
        </div><!-- No. Bukti -->
-       <div><label for="no_bukti" class="block text-sm font-semibold text-gray-700 mb-2">No. Bukti</label> <input type="text" id="no_bukti" name="no_bukti" required placeholder="Otomatis terisi" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-blue-50" readonly style="cursor: not-allowed;">
+       <div>
+        <label for="no_bukti" class="block text-sm font-semibold text-gray-700 mb-2">No. Bukti</label> <input type="text" id="no_bukti" name="no_bukti" required placeholder="Otomatis terisi" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-blue-50" readonly style="cursor: not-allowed;">
        </div><!-- Debet & Kredit Row -->
-       <div class="grid grid-cols-2 gap-4"><!-- Debet -->
-        <div><label for="debet" class="block text-sm font-semibold text-gray-700 mb-2">Debet</label>
-         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">Rp</span> <input type="number" id="debet" name="debet" min="0" step="1" placeholder="0" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
+       <div class="grid grid-cols-2 gap-4">
+        <!-- Debet -->
+        <div>
+         <label for="debet" class="block text-sm font-semibold text-gray-700 mb-2">Debet</label>
+         <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">Rp</span> <input type="number" id="debet" name="debet" min="0" step="1" placeholder="0" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
          </div>
         </div><!-- Kredit -->
-        <div><label for="kredit" class="block text-sm font-semibold text-gray-700 mb-2">Kredit</label>
-         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">Rp</span> <input type="number" id="kredit" name="kredit" min="0" step="1" placeholder="0" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
+        <div>
+         <label for="kredit" class="block text-sm font-semibold text-gray-700 mb-2">Kredit</label>
+         <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">Rp</span> <input type="number" id="kredit" name="kredit" min="0" step="1" placeholder="0" class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-700 placeholder-gray-400 font-medium hover:border-blue-300 bg-white">
          </div>
         </div>
        </div><!-- Submit Button --> <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] flex items-center justify-center gap-2 mt-8 shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
         </svg><span id="btn-text">Simpan Data</span> </button>
       </form>
      </div><!-- Footer -->
@@ -86,14 +96,14 @@
    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all duration-300" style="animation: modalSlideIn 0.3s ease-out;">
     <div class="mb-6 flex justify-center">
      <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-      <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
       </svg>
      </div>
     </div>
     <h2 class="text-2xl font-bold text-gray-800 mb-2">Data Berhasil Tersimpan!</h2>
     <p class="text-gray-600 mb-6">Data keuangan Anda telah berhasil ditambahkan ke dalam database.</p>
-    <div class="flex gap-3"><button id="view-sheet-btn" class="flex-1 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:brightness-95 active:scale-[0.98]" style="background-color: #4285F4;"> Lihat Data </button> <button id="close-modal-btn" class="flex-1 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:brightness-95 active:scale-[0.98]" style="background-color: #FFBF00; color: #1f2937;"> Tutup </button>
+    <div class="flex gap-3">
+     <button id="view-sheet-btn" class="flex-1 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:brightness-95 active:scale-[0.98]" style="background-color: #4285F4;"> Lihat Data </button> <button id="close-modal-btn" class="flex-1 py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:brightness-95 active:scale-[0.98]" style="background-color: #FFBF00; color: #1f2937;"> Tutup </button>
     </div>
    </div>
   </div><!-- Error Modal -->
@@ -101,8 +111,7 @@
    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all duration-300" style="animation: modalSlideIn 0.3s ease-out;">
     <div class="mb-6 flex justify-center">
      <div class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center">
-      <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
      </div>
     </div>
@@ -299,26 +308,34 @@
       };
 
       try {
+        // Set timeout untuk fetch (10 detik)
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
+          signal: controller.signal
         });
 
-        // Since no-cors mode doesn't return response body, assume success
+        clearTimeout(timeoutId);
+
+        // Show success immediately
         successModal.classList.remove('hidden');
         form.reset();
-
-        // Reset bukti number untuk form baru
         initBuktiNumber();
 
       } catch (error) {
-        console.error('Submission error:', error);
+        if (error.name === 'AbortError') {
+          errorModalText.textContent = 'Permintaan memakan waktu terlalu lama. Silakan coba lagi.';
+        } else {
+          errorModalText.textContent = 'Terjadi kesalahan jaringan, silakan coba lagi.';
+        }
         errorModal.classList.remove('hidden');
-        errorModalText.textContent = 'Terjadi kesalahan jaringan, silakan coba lagi.';
       } finally {
         // Reset button state
         submitBtn.disabled = false;
@@ -368,5 +385,5 @@
     // Initialize bukti number on page load
     initBuktiNumber();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d93efcbd3755400',t:'MTc3Mjk5NDg5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d93f8a4f0975400',t:'MTc3Mjk5NTI1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
