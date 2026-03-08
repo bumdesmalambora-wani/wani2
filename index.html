@@ -196,15 +196,42 @@
         <h1 id="nav-title" class="text-xl font-bold text-white">BUMDes Malambora Wani</h1>
         <p class="text-xs text-white/70">Desa Sejahtera, Rakyat Makmur</p>
        </div>
-      </div><!-- Desktop Menu -->
-      <div class="hidden md:flex items-center gap-8">
-       <a href="#beranda" class="nav-link text-white/90 hover:text-white font-medium">Beranda</a> <a href="#tentang" class="nav-link text-white/90 hover:text-white font-medium">Tentang</a> <a href="https://wanidua.online/invoice" class="nav-link text-white/90 hover:text-white font-medium">Invoice</a> <a href="https://wanidua.online/wani2" class="nav-link text-white/90 hover:text-white font-medium">Laporan</a> <a href="#galeri" class="nav-link text-white/90 hover:text-white font-medium">Galeri</a> <a href="https://wanidua.online/kontak" class="nav-link text-white/90 hover:text-white font-medium">Kontak</a>
-      </div><!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-white/10 text-white"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
+      </div>
+
+      <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-8">
+    <a href="#beranda" class="nav-link text-white/90 hover:text-white font-medium">Beranda</a>
+    <a href="#tentang" class="nav-link text-white/90 hover:text-white font-medium">Tentang</a>
+    <!-- Dropdown Menu -->
+    <div class="relative group">
+        <button class="flex items-center gap-1 text-white/90 group-hover:text-white font-medium focus:outline-none">Transaksi<i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-hover:rotate-180"></i>
+        </button>
+     <!-- Dropdown Content -->
+        <div class="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left scale-95 group-hover:scale-100 z-50">
+            <div class="py-2">
+                <a href="https://wanidua.online/invoice" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Invoice</a>
+                <a href="https://wanidua.online/wani2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Laporan</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="#galeri" class="nav-link text-white/90 hover:text-white font-medium">Galeri</a>
+    <a href="https://wanidua.online/kontak" class="nav-link text-white/90 hover:text-white font-medium">Kontak</a>
+</div>
+
+<!-- Mobile Menu Button --> 
+     
+     <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-white/10 text-white"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
      </div>
     </div><!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-emerald-800/95 backdrop-blur-lg">
      <div class="px-4 py-4 space-y-2">
-      <a href="https://wanidua.online/" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Beranda</a> <a href="#tentang" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Tentang</a> <a href="https://wanidua.online/invoice" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Invoice</a> <a href="https://wanidua.online/wani2" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Laporan</a> <a href="#galeri" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Galeri</a> <a href="https://wanidua.online/kontak" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Kontak</a>
+      <a href="https://wanidua.online/" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Beranda</a> 
+      <a href="#tentang" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Tentang</a> 
+      <a href="https://wanidua.online/invoice" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Invoice</a> 
+      <a href="https://wanidua.online/wani2" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Laporan</a> 
+      <a href="#galeri" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Galeri</a> 
+      <a href="https://wanidua.online/kontak" class="block px-4 py-3 rounded-lg text-white hover:bg-white/10">Kontak</a>
      </div>
     </div>
    </nav><!-- Back to Top Button with Circular Ring Progress --> <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
