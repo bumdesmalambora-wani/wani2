@@ -278,7 +278,7 @@
      </div><!-- Button Group -->
      <div class="flex gap-3 w-full"><button id="view-sheets-btn" type="button" class="flex-1 py-3 px-4 rounded-lg font-semibold transition transform hover:scale-105 active:scale-95 bg-gradient-to-r from-blue-500 to-cyan-500 text-white flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-       </svg> Lihat Sheet </button> <button id="modal-close-btn" type="button" class="flex-1 py-3 px-4 rounded-lg font-semibold transition transform hover:scale-105 active:scale-95 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl"> Tutup </button>
+       </svg> Lihat Google Sheet </button> <button id="modal-close-btn" type="button" class="flex-1 py-3 px-4 rounded-lg font-semibold transition transform hover:scale-105 active:scale-95 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl"> Tutup </button>
      </div>
     </div>
    </div>
@@ -568,7 +568,10 @@
       document.getElementById('no_bukti').value = noBukti;
     }
 
-    generateNoBukti();
+    // Initialize bukti counter from localStorage
+    (async () => {
+      generateNoBukti();
+    })();
 
     // Form submission
     form.addEventListener('submit', async function(e) {
@@ -580,16 +583,20 @@
       btnLoading.classList.remove('hidden');
       
       const formData = new FormData(form);
+      const debet = formData.get('debet') || 0;
+      const kredit = formData.get('kredit') || 0;
+      
       const data = {
         tanggal: formData.get('tanggal'),
         keterangan: formData.get('keterangan'),
         no_bukti: formData.get('no_bukti'),
-        debet: formData.get('debet') || 0,
-        kredit: formData.get('kredit') || 0
+        debet: parseInt(debet) || 0,
+        kredit: parseInt(kredit) || 0
       };
       
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwgBUZm_qdPAHuWhlaokUc_refL0ZFjO0b9Lqqbu8n_2Yo2tqQDlNOvb_VPWNy5jLY/exec', {
+        // Send data to Google Apps Script via POST
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxbkRp0i7ywmVMd_8U2LmTqYZUV2UKaakWi7UEpABYvQr_1ouvVGVyz0oT0MTF-iV0B/exec', {
           method: 'POST',
           mode: 'no-cors',
           headers: {
@@ -598,20 +605,23 @@
           body: JSON.stringify(data)
         });
         
+        // Show success modal
         const noBuktiValue = formData.get('no_bukti');
         modalBukti.textContent = noBuktiValue;
         successModal.classList.remove('hidden');
         
+        // Reset form
         form.reset();
         updateDateInput();
         document.getElementById('day-btn').textContent = String(selectedDay).padStart(2, '0');
         document.getElementById('month-btn').textContent = monthNames[selectedMonth];
         document.getElementById('year-btn').textContent = selectedYear;
+        generateNoBukti();
         
       } catch (error) {
         console.error('Submission error:', error);
         errorMessage.classList.remove('hidden');
-        errorDetail.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
+        errorDetail.textContent = 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.';
       } finally {
         submitBtn.disabled = false;
         btnText.classList.remove('hidden');
@@ -630,5 +640,5 @@
       window.open('https://docs.google.com/spreadsheets/d/1y6-CWAwMnpLkvW-zfjkKe7JTm7ddwAqDeTzrxW17cLE/edit?usp=sharing', '_blank');
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d93742892c2fdcf',t:'MTc3Mjk4OTgzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d93ac70231ca714',t:'MTc3Mjk5MjEzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
