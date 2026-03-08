@@ -11,6 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Desa Wani Lumbumpetigo</title>
+    
+    <!-- Memanggil CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        /* Mengatur tinggi peta agar terlihat di layar */
+        #map { height: 500px; width: 100%; border-radius: 10px; }
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .info { margin-bottom: 10px; }
+    </style>
   <style>
     * { font-family: 'Poppins', sans-serif; }
     html, body { height: 100%; margin: 0; }
@@ -160,7 +173,19 @@
       </div>
      </div>
     </div>
-   </div><!-- Scroll Indicator -->
+   </div>
+<div class="info">
+        <h2>Peta Lokasi Desa Wani Lumbumpetigo</h2>
+        <p>Koordinat: -0.6858358450414482, 119.84554689925253</p>
+    </div>
+
+    <!-- Wadah untuk Peta -->
+    <div id="map"></div>
+
+    <!-- Memanggil Library JavaScript Leaflet -->
+   
+
+<!-- Scroll Indicator -->
    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
     <a href="#tentang" class="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors"> <span class="text-xs">Scroll Down</span> <i data-lucide="chevron-down" class="w-6 h-6"></i> </a>
    </div>
@@ -425,7 +450,7 @@
        </div>
        <div>
         <h3 class="text-lg font-bold text-white mb-2">Alamat</h3>
-        <p id="contact-address" class="text-gray-400">Desa Malambora, Kecamatan Wani, Kabupaten Donggala, Sulawesi Tengah</p>
+        <p id="contact-address" class="text-gray-400">Desa Wani Dua, Kecamatan Tanantovea, Kabupaten Donggala, Sulawesi Tengah</p>
        </div>
       </div>
       <div class="glass-card rounded-2xl p-6 flex items-start gap-5 card-hover">
@@ -750,5 +775,26 @@
       });
     }
   </script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 1. Tentukan koordinat target
+        var lat = -0.6858358450414482;
+        var lng = 119.84554689925253;
+
+        // 2. Inisialisasi peta dan set pandangan ke koordinat tersebut
+        var map = L.map('map').setView([lat, lng], 15);
+
+        // 3. Tambahkan lapisan peta (Tile Layer) dari OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 4. Tambahkan Marker (Penanda) di lokasi
+        var marker = L.marker([lat, lng]).addTo(map);
+
+        // 5. Tambahkan Popup saat marker diklik
+        marker.bindPopup("<b>Desa Wani Lumbumpetigo</b><br>Kec. Tanantovea, Donggala.").openPopup();
+    </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d897453f6189c81',t:'MTc3Mjg4NDk4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
