@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Mobile BUMDes</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .menu-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .menu-item:hover {
+      transform: translateX(8px);
+    }
+    
+    .menu-item:active {
+      transform: scale(0.98);
+    }
+    
+    .hamburger-line {
+      transition: all 0.3s ease;
+    }
+    
+    .menu-open .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-open .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .menu-open .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .slide-in {
+      animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    .slide-out {
+      animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease forwards;
+    }
+    
+    .fade-out {
+      animation: fadeOut 0.2s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    .stagger-1 { animation-delay: 0.05s; }
+    .stagger-2 { animation-delay: 0.1s; }
+    .stagger-3 { animation-delay: 0.15s; }
+    .stagger-4 { animation-delay: 0.2s; }
+    
+    .menu-item-animate {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: menuItemIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes menuItemIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .gradient-border {
+      background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-slate-50 overflow-auto">
+  <div id="app-wrapper" class="w-full min-h-full"><!-- Header -->
+   <header id="header" class="sticky top-0 z-50 bg-white shadow-sm border-b border-slate-100">
+    <div class="max-w-lg mx-auto px-4 py-3 flex items-center justify-between"><button id="menu-toggle" class="p-2 rounded-xl hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2" aria-label="Toggle menu">
+      <div class="w-6 h-6 flex flex-col justify-center items-center gap-1.5"><span class="hamburger-line w-5 h-0.5 bg-slate-700 rounded-full"></span> <span class="hamburger-line w-5 h-0.5 bg-slate-700 rounded-full"></span> <span class="hamburger-line w-5 h-0.5 bg-slate-700 rounded-full"></span>
+      </div></button>
+     <h1 id="menu-title" class="text-lg font-bold text-slate-800">Menu BUMDes</h1>
+     <div class="w-10 h-10 rounded-full gradient-border p-0.5">
+      <div class="w-full h-full rounded-full bg-white flex items-center justify-center"><span class="text-emerald-600 font-bold text-sm">BD</span>
+      </div>
+     </div>
+    </div>
+   </header><!-- Overlay -->
+   <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden" aria-hidden="true"></div><!-- Side Menu -->
+   <nav id="side-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 hidden" aria-label="Menu navigasi utama"><!-- Menu Header -->
+    <div class="gradient-border p-6 pb-8">
+     <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+       <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center"><i data-lucide="building-2" class="w-6 h-6 text-white"></i>
+       </div>
+       <div>
+        <h2 class="text-white font-bold text-lg">BUMDes</h2>
+        <p class="text-emerald-100 text-sm">Portal Layanan</p>
+       </div>
+      </div><button id="close-menu" class="p-2 rounded-xl bg-white/20 hover:bg-white/30 transition-colors" aria-label="Tutup menu"> <i data-lucide="x" class="w-5 h-5 text-white"></i> </button>
+     </div>
+    </div><!-- Menu Items -->
+    <div class="p-4 space-y-2"><a href="https://bumdes.kemendesa.go.id/" target="_blank" rel="noopener noreferrer" class="menu-item menu-item-animate stagger-1 flex items-center gap-4 p-4 rounded-2xl hover:bg-emerald-50 group">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-200 group-hover:shadow-emerald-300 transition-shadow"><i data-lucide="landmark" class="w-6 h-6 text-white"></i>
+      </div>
+      <div class="flex-1">
+       <h3 class="font-semibold text-slate-800 group-hover:text-emerald-700 transition-colors">Portal BUMDes</h3>
+       <p class="text-sm text-slate-500">Kemendesa RI</p>
+      </div><i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-emerald-500 transition-colors"></i> </a> <a href="https://wanidua.online/wani2" target="_blank" rel="noopener noreferrer" class="menu-item menu-item-animate stagger-2 flex items-center gap-4 p-4 rounded-2xl hover:bg-blue-50 group">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-200 group-hover:shadow-blue-300 transition-shadow"><i data-lucide="file-bar-chart" class="w-6 h-6 text-white"></i>
+      </div>
+      <div class="flex-1">
+       <h3 class="font-semibold text-slate-800 group-hover:text-blue-700 transition-colors">Laporan</h3>
+       <p class="text-sm text-slate-500">Laporan Keuangan</p>
+      </div><i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-blue-500 transition-colors"></i> </a> <a href="https://wanidua.online/invoice" target="_blank" rel="noopener noreferrer" class="menu-item menu-item-animate stagger-3 flex items-center gap-4 p-4 rounded-2xl hover:bg-amber-50 group">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-200 group-hover:shadow-amber-300 transition-shadow"><i data-lucide="receipt" class="w-6 h-6 text-white"></i>
+      </div>
+      <div class="flex-1">
+       <h3 class="font-semibold text-slate-800 group-hover:text-amber-700 transition-colors">Invoice</h3>
+       <p class="text-sm text-slate-500">Kelola Faktur</p>
+      </div><i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-amber-500 transition-colors"></i> </a> <a href="https://wanidua.online/input" target="_blank" rel="noopener noreferrer" class="menu-item menu-item-animate stagger-4 flex items-center gap-4 p-4 rounded-2xl hover:bg-violet-50 group">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-200 group-hover:shadow-violet-300 transition-shadow"><i data-lucide="wallet" class="w-6 h-6 text-white"></i>
+      </div>
+      <div class="flex-1">
+       <h3 class="font-semibold text-slate-800 group-hover:text-violet-700 transition-colors">Buku Kas</h3>
+       <p class="text-sm text-slate-500">Input Transaksi</p>
+      </div><i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-violet-500 transition-colors"></i> </a>
+    </div><!-- Menu Footer -->
+    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100 bg-slate-50/80 backdrop-blur">
+     <p class="text-center text-xs text-slate-400">© 2024 BUMDes Wanidua</p>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="max-w-lg mx-auto p-4 pb-8"><!-- Welcome Card -->
+    <div class="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-3xl p-6 mb-6 text-white shadow-xl shadow-emerald-200">
+     <div class="flex items-start justify-between mb-4">
+      <div>
+       <p class="text-emerald-100 text-sm mb-1">Selamat Datang 👋</p>
+       <h2 class="text-2xl font-bold">BUMDes Wanidua</h2>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center"><i data-lucide="sparkles" class="w-6 h-6"></i>
+      </div>
+     </div>
+     <p class="text-emerald-50 text-sm leading-relaxed">Akses cepat ke semua layanan BUMDes melalui menu di pojok kiri atas.</p>
+    </div><!-- Quick Access Grid -->
+    <h3 class="text-slate-700 font-semibold mb-3 px-1">Akses Cepat</h3>
+    <div class="grid grid-cols-2 gap-3"><a href="https://bumdes.kemendesa.go.id/" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md hover:border-emerald-200 transition-all group">
+      <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-500 transition-colors"><i data-lucide="landmark" class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors"></i>
+      </div><h4 class="font-semibold text-slate-800 text-sm">Portal BUMDes</h4><p class="text-xs text-slate-400 mt-1">Kemendesa</p></a> <a href="https://wanidua.online/wani2" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all group">
+      <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mb-3 group-hover:bg-blue-500 transition-colors"><i data-lucide="file-bar-chart" class="w-5 h-5 text-blue-600 group-hover:text-white transition-colors"></i>
+      </div><h4 class="font-semibold text-slate-800 text-sm">Laporan</h4><p class="text-xs text-slate-400 mt-1">Keuangan</p></a> <a href="https://wanidua.online/invoice" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md hover:border-amber-200 transition-all group">
+      <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors"><i data-lucide="receipt" class="w-5 h-5 text-amber-600 group-hover:text-white transition-colors"></i>
+      </div><h4 class="font-semibold text-slate-800 text-sm">Invoice</h4><p class="text-xs text-slate-400 mt-1">Faktur</p></a> <a href="https://wanidua.online/input" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md hover:border-violet-200 transition-all group">
+      <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center mb-3 group-hover:bg-violet-500 transition-colors"><i data-lucide="wallet" class="w-5 h-5 text-violet-600 group-hover:text-white transition-colors"></i>
+      </div><h4 class="font-semibold text-slate-800 text-sm">Buku Kas</h4><p class="text-xs text-slate-400 mt-1">Transaksi</p></a>
+    </div>
+   </main>
+  </div>
+  <script>
+    const defaultConfig = {
+      menu_title: 'Menu BUMDes',
+      background_color: '#f8fafc',
+      primary_color: '#059669',
+      text_color: '#1e293b',
+      card_color: '#ffffff',
+      accent_color: '#10b981'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Menu functionality
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const sideMenu = document.getElementById('side-menu');
+    const overlay = document.getElementById('overlay');
+    let isMenuOpen = false;
+
+    function openMenu() {
+      isMenuOpen = true;
+      menuToggle.classList.add('menu-open');
+      sideMenu.classList.remove('hidden', 'slide-out');
+      sideMenu.classList.add('slide-in');
+      overlay.classList.remove('hidden', 'fade-out');
+      overlay.classList.add('fade-in');
+      document.body.style.overflow = 'hidden';
+      
+      // Reset and trigger menu item animations
+      const menuItems = sideMenu.querySelectorAll('.menu-item-animate');
+      menuItems.forEach(item => {
+        item.style.animation = 'none';
+        item.offsetHeight; // Trigger reflow
+        item.style.animation = '';
+      });
+    }
+
+    function closeMenuFn() {
+      isMenuOpen = false;
+      menuToggle.classList.remove('menu-open');
+      sideMenu.classList.remove('slide-in');
+      sideMenu.classList.add('slide-out');
+      overlay.classList.remove('fade-in');
+      overlay.classList.add('fade-out');
+      document.body.style.overflow = '';
+      
+      setTimeout(() => {
+        if (!isMenuOpen) {
+          sideMenu.classList.add('hidden');
+          overlay.classList.add('hidden');
+        }
+      }, 300);
+    }
+
+    menuToggle.addEventListener('click', () => {
+      if (isMenuOpen) {
+        closeMenuFn();
+      } else {
+        openMenu();
+      }
+    });
+
+    closeMenu.addEventListener('click', closeMenuFn);
+    overlay.addEventListener('click', closeMenuFn);
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        closeMenuFn();
+      }
+    });
+
+    // Element SDK Integration
+    async function onConfigChange(cfg) {
+      config = { ...defaultConfig, ...cfg };
+      
+      // Update title
+      const menuTitle = document.getElementById('menu-title');
+      if (menuTitle) {
+        menuTitle.textContent = config.menu_title || defaultConfig.menu_title;
+      }
+      
+      // Update colors
+      const appWrapper = document.getElementById('app-wrapper');
+      if (appWrapper) {
+        appWrapper.style.backgroundColor = config.background_color || defaultConfig.background_color;
+      }
+      
+      // Update header
+      const header = document.getElementById('header');
+      if (header) {
+        header.style.backgroundColor = config.card_color || defaultConfig.card_color;
+      }
+    }
+
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (value) => {
+              cfg.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => cfg.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              cfg.primary_color = value;
+              window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (value) => {
+              cfg.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => cfg.card_color || defaultConfig.card_color,
+            set: (value) => {
+              cfg.card_color = value;
+              window.elementSdk.setConfig({ card_color: value });
+            }
+          },
+          {
+            get: () => cfg.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              cfg.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(cfg) {
+      return new Map([
+        ['menu_title', cfg.menu_title || defaultConfig.menu_title]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dab9a31c5a0879d',t:'MTc3MzI0MzA0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
