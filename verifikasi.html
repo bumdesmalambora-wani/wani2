@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifikasi QR Code</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .qr-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    }
+    .verified-badge {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+      50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+    }
+    .card-shine {
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="h-full w-full overflow-auto qr-pattern" style="background-color: #0f172a;">
+   <div class="min-h-full flex items-center justify-center p-6">
+    <div class="w-full max-w-md">
+     <!-- Main Card -->
+     <div class="relative rounded-3xl overflow-hidden shadow-2xl" style="background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);">
+      <div class="card-shine absolute inset-0 pointer-events-none"></div><!-- Header with Verified Badge -->
+      <div class="relative px-8 pt-8 pb-6 text-center border-b border-slate-700/50">
+       <div class="verified-badge inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style="background-color: #10b981;">
+        <i data-lucide="shield-check" class="w-5 h-5 text-white"></i> <span class="text-white font-bold text-sm tracking-wide">TERVERIFIKASI</span>
+       </div>
+       <h1 id="display-nama" class="text-2xl font-bold text-white mb-1">AGUNG BAMBANG SUJADMIKO</h1>
+       <p id="display-jabatan" class="text-emerald-400 font-semibold">Direktur Bumdes Malambora Wani</p>
+      </div><!-- QR Code Section -->
+      <div class="px-8 py-6 flex justify-center">
+       <div class="bg-white p-4 rounded-2xl shadow-lg"><img id="qr-code" src="https://wanidua.online/direktur-bumdesa-malambora-wani-dua.png" alt="QR Code Verifikasi" width="160" height="160" class="block" loading="lazy" onerror="console.error('Gambar QR Code gagal dimuat:', this.src); this.style.background='#e5e7eb'; this.alt='Gambar tidak tersedia';">
+       </div>
+      </div><!-- Info Section -->
+      <div class="px-8 pb-8 space-y-4">
+       <!-- Alamat -->
+       <div class="flex items-start gap-4 p-4 rounded-xl" style="background-color: rgba(30, 41, 59, 0.8);">
+        <div class="p-2 rounded-lg" style="background-color: #10b981;">
+         <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+         <p class="text-slate-400 text-xs uppercase tracking-wider mb-1">Alamat</p>
+         <p id="display-alamat" class="text-white font-medium">Desa Wani Dua</p>
+        </div>
+       </div><!-- Email -->
+       <div class="flex items-start gap-4 p-4 rounded-xl" style="background-color: rgba(30, 41, 59, 0.8);">
+        <div class="p-2 rounded-lg" style="background-color: #3b82f6;">
+         <i data-lucide="mail" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+         <p class="text-slate-400 text-xs uppercase tracking-wider mb-1">Email</p><a id="display-email" href="mailto:info@wanidua.online" class="text-blue-400 font-medium hover:text-blue-300 transition-colors">info@wanidua.online</a>
+        </div>
+       </div><!-- Website -->
+       <div class="flex items-start gap-4 p-4 rounded-xl" style="background-color: rgba(30, 41, 59, 0.8);">
+        <div class="p-2 rounded-lg" style="background-color: #8b5cf6;">
+         <i data-lucide="globe" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+         <p class="text-slate-400 text-xs uppercase tracking-wider mb-1">Website</p><a id="display-website" href="https://wanidua.online" target="_blank" rel="noopener noreferrer" class="text-purple-400 font-medium hover:text-purple-300 transition-colors">wanidua.online</a>
+        </div>
+       </div>
+      </div><!-- Footer -->
+      <div class="px-8 py-4 border-t border-slate-700/50 text-center">
+       <p class="text-slate-500 text-xs">Scan QR Code untuk verifikasi keaslian</p>
+       <p class="text-slate-600 text-xs mt-1">BUMDes Malambora Wani • Desa Wani Dua</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      nama: 'AGUNG BAMBANG SUJADMIKO',
+      alamat: 'Desa Wani Dua',
+      jabatan: 'Direktur Bumdes Malambora Wani',
+      email: 'info@wanidua.online',
+      website: 'https://wanidua.online',
+      background_color: '#0f172a',
+      card_color: '#1e293b',
+      text_color: '#ffffff',
+      accent_color: '#10b981',
+      link_color: '#3b82f6',
+      font_family: 'Plus Jakarta Sans',
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const nama = config.nama || defaultConfig.nama;
+      const alamat = config.alamat || defaultConfig.alamat;
+      const jabatan = config.jabatan || defaultConfig.jabatan;
+      const email = config.email || defaultConfig.email;
+      const website = config.website || defaultConfig.website;
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const linkColor = config.link_color || defaultConfig.link_color;
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+
+      // Update text content
+      document.getElementById('display-nama').textContent = nama;
+      document.getElementById('display-jabatan').textContent = jabatan;
+      document.getElementById('display-alamat').textContent = alamat;
+      
+      const emailEl = document.getElementById('display-email');
+      emailEl.textContent = email;
+      emailEl.href = `mailto:${email}`;
+      
+      const websiteEl = document.getElementById('display-website');
+      const displayWebsite = website.replace(/^https?:\/\//, '');
+      websiteEl.textContent = displayWebsite;
+      websiteEl.href = website.startsWith('http') ? website : `https://${website}`;
+
+      // Update colors
+      document.getElementById('app-wrapper').style.backgroundColor = bgColor;
+      
+      document.querySelectorAll('#display-nama, #display-alamat').forEach(el => {
+        el.style.color = textColor;
+      });
+
+      document.getElementById('display-jabatan').style.color = accentColor;
+      document.querySelector('.verified-badge').style.backgroundColor = accentColor;
+
+      emailEl.style.color = linkColor;
+
+      // Update font
+      const baseFontStack = 'system-ui, sans-serif';
+      document.body.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+      
+      // Update font sizes
+      document.getElementById('display-nama').style.fontSize = `${fontSize * 1.5}px`;
+      document.getElementById('display-jabatan').style.fontSize = `${fontSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+          },
+          {
+            get: () => config.link_color || defaultConfig.link_color,
+            set: (value) => { config.link_color = value; window.elementSdk.setConfig({ link_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['nama', config.nama || defaultConfig.nama],
+        ['alamat', config.alamat || defaultConfig.alamat],
+        ['jabatan', config.jabatan || defaultConfig.jabatan],
+        ['email', config.email || defaultConfig.email],
+        ['website', config.website || defaultConfig.website]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dabf063039bb15c',t:'MTc3MzI0NjU3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
