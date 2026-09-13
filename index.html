@@ -294,6 +294,42 @@
     }
 
     .nav-link:hover::after { width: 100%; }
+
+* { font-family: 'Poppins', sans-serif; }
+    html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after { width: 100%; }
+
+    /* Custom Tampilan Titik Indikator Swiper */
+    .swiper-pagination-bullet {
+      background: #ffffff !important;
+      opacity: 0.5;
+      width: 10px;
+      height: 10px;
+      transition: all 0.3s ease;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: #3b82f6 !important;
+      width: 28px;
+      border-radius: 6px;
+    }
 </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -328,18 +364,17 @@
     </div>
    </div>
   </nav>
-<!-- ================= 2. SLIDER GAMBAR (DITAROH PATEN DI BAWAH NAVBAR) ================= -->
-  <!-- pt-20 berfungsi memberikan jarak dari atas setinggi header agar slider tidak tertutup menu -->
+<!-- ================= 2. SLIDER GAMBAR OTOMATIS (DITAROH DI BAWAH NAVBAR) ================= -->
   <section id="galeri" class="pt-20 w-full overflow-hidden bg-gray-950">
-   <div class="relative w-full">
+   <div class="swiper mySwiper w-full">
     
-    <div class="slider-container" id="slider">
+    <div class="swiper-wrapper">
      
      <!-- Slide 1 -->
-     <div class="slide-item h-[350px] sm:h-[480px] lg:h-[550px]" id="slide1">
+     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
       <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_2_qimnih.jpg" alt="Rapat Anggota" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
-      <div class="absolute bottom-10 left-6 sm:left-16 max-w-xl z-10 text-left">
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
+      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
        <span class="px-3 py-1 rounded-md bg-blue-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 01</span>
        <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Rapat Anggota Tahunan</h3>
        <p class="text-gray-300 text-xs sm:text-sm">Diskusi pengembangan strategi usaha desa dan evaluasi kinerja tahunan.</p>
@@ -347,10 +382,10 @@
      </div>
 
      <!-- Slide 2 -->
-     <div class="slide-item h-[350px] sm:h-[480px] lg:h-[550px]" id="slide2">
+     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
       <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_1_gl8op9.jpg" alt="Kegiatan Pertanian" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
-      <div class="absolute bottom-10 left-6 sm:left-16 max-w-xl z-10 text-left">
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
+      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
        <span class="px-3 py-1 rounded-md bg-green-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 02</span>
        <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Sektor Pertanian Mandiri</h3>
        <p class="text-gray-300 text-xs sm:text-sm">Pengelolaan hasil tani lokal untuk meningkatkan ketahanan pangan desa.</p>
@@ -358,10 +393,10 @@
      </div>
 
      <!-- Slide 3 -->
-     <div class="slide-item h-[350px] sm:h-[480px] lg:h-[550px]" id="slide3">
+     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
       <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_yhdax6.jpg" alt="Pelatihan Keterampilan" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
-      <div class="absolute bottom-10 left-6 sm:left-16 max-w-xl z-10 text-left">
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
+      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
        <span class="px-3 py-1 rounded-md bg-purple-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 03</span>
        <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Pelatihan Keterampilan SDM</h3>
        <p class="text-gray-300 text-xs sm:text-sm">Program pemberdayaan masyarakat dan peningkatan kapasitas pengurus Bumdes.</p>
@@ -369,10 +404,10 @@
      </div>
 
      <!-- Slide 4 -->
-     <div class="slide-item h-[350px] sm:h-[480px] lg:h-[550px]" id="slide4">
+     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
       <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_c3ddgi.jpg" alt="Kerjasama Mitra" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
-      <div class="absolute bottom-10 left-6 sm:left-16 max-w-xl z-10 text-left">
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
+      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
        <span class="px-3 py-1 rounded-md bg-amber-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 04</span>
        <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Kerjasama Kemitraan Strategis</h3>
        <p class="text-gray-300 text-xs sm:text-sm">Penandatanganan kerjasama untuk perluasan jaringan distribusi bisnis desa.</p>
@@ -381,17 +416,11 @@
 
     </div>
 
-    <!-- Indicator Navigasi Titik -->
-    <div class="absolute bottom-4 right-6 sm:right-16 flex gap-2 z-20">
-     <a href="#slide1" class="w-3 h-3 rounded-full bg-white/50 hover:bg-blue-500 focus:bg-blue-500 focus:w-8 transition-all"></a>
-     <a href="#slide2" class="w-3 h-3 rounded-full bg-white/50 hover:bg-blue-500 focus:bg-blue-500 focus:w-8 transition-all"></a>
-     <a href="#slide3" class="w-3 h-3 rounded-full bg-white/50 hover:bg-blue-500 focus:bg-blue-500 focus:w-8 transition-all"></a>
-     <a href="#slide4" class="w-3 h-3 rounded-full bg-white/50 hover:bg-blue-500 focus:bg-blue-500 focus:w-8 transition-all"></a>
-    </div>
+    <!-- Indikator Titik Otomatis -->
+    <div class="swiper-pagination !bottom-4 !left-auto !right-6 sm:!right-16 !w-auto"></div>
 
    </div>
   </section>
-
 <!-- Hero Section -->
   <section id="beranda" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-950"></div><!-- Animated Background Elements -->
