@@ -257,78 +257,129 @@
     }
   }
 /* CSS KUSUS SLIDER FULL WIDTH (MENTOK KIRI-KANAN) */
-    .slider-container {
+   <style>
+    /* RESET BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0b0f19;
       display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* CONTAINER SLIDER (FULL WIDTH MENTOK KIRI-KANAN) */
+    .slider-box {
       width: 100vw;
+      height: 500px; /* Sesuaikan tinggi slider */
+      overflow: hidden;
+      position: relative;
     }
 
-    .slider-container::-webkit-scrollbar {
-      display: none; /* Sembunyikan scrollbar */
+    /* WRAPPER GAMBAR UNTUK ANIMASI */
+    .slider-wrapper {
+      display: flex;
+      width: 400%; /* 100% x jumlah slide (4 gambar = 400%) */
+      height: 100%;
+      animation: slideAutoplay 16s infinite ease-in-out;
     }
 
+    /* Hentikan animasi saat kursor di atas slider (Opsional) */
+    .slider-box:hover .slider-wrapper {
+      animation-play-state: paused;
+    }
+
+    /* ITEM SLIDE INDIVIDUAL */
     .slide-item {
-      flex: 0 0 100vw;
       width: 100vw;
-      scroll-snap-align: start;
+      height: 100%;
       position: relative;
+      flex-shrink: 0;
     }
 
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .nav-link::after {
-      content: '';
+    /* OVERLAY GELAP AGAR TEKS TERBACA */
+    .overlay {
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #3b82f6;
-      transition: width 0.3s ease;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.2));
     }
 
-    .nav-link:hover::after { width: 100%; }
-
-* { font-family: 'Poppins', sans-serif; }
-    html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
-
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link::after {
-      content: '';
+    /* CAPTION TEKS */
+    .caption {
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #3b82f6;
-      transition: width 0.3s ease;
+      bottom: 40px;
+      left: 50px;
+      right: 50px;
+      color: #ffffff;
+      z-index: 10;
+      max-width: 650px;
     }
 
-    .nav-link:hover::after { width: 100%; }
-
-    /* Custom Tampilan Titik Indikator Swiper */
-    .swiper-pagination-bullet {
-      background: #ffffff !important;
-      opacity: 0.5;
-      width: 10px;
-      height: 10px;
-      transition: all 0.3s ease;
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #3b82f6;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    .swiper-pagination-bullet-active {
-      opacity: 1;
-      background: #3b82f6 !important;
-      width: 28px;
-      border-radius: 6px;
+
+    .caption h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .caption p {
+      font-size: 14px;
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    /* ANIMASI CSS SLIDER AUTOMATIS (4 SLIDE) */
+    @keyframes slideAutoplay {
+      0%   { transform: translateX(0); }
+      20%  { transform: translateX(0); }      /* Diam di Slide 1 */
+      25%  { transform: translateX(-100vw); } /* Pindah ke Slide 2 */
+      45%  { transform: translateX(-100vw); } /* Diam di Slide 2 */
+      50%  { transform: translateX(-200vw); } /* Pindah ke Slide 3 */
+      70%  { transform: translateX(-200vw); } /* Diam di Slide 3 */
+      75%  { transform: translateX(-300vw); } /* Pindah ke Slide 4 */
+      95%  { transform: translateX(-300vw); } /* Diam di Slide 4 */
+      100% { transform: translateX(0); }      /* Kembali ke Slide 1 */
+    }
+
+    /* RESPONSIVE LAYAR HP */
+    @media (max-width: 640px) {
+      .slider-box {
+        height: 350px;
+      }
+      .caption {
+        left: 20px;
+        right: 20px;
+        bottom: 25px;
+      }
+      .caption h3 {
+        font-size: 20px;
+      }
+      .caption p {
+        font-size: 12px;
+      }
     }
 </style>
   <style>@view-transition { navigation: auto; }</style>
@@ -341,7 +392,7 @@
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20"><!-- Logo -->
      <div class="flex items-center gap-3">
-      <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772874897/wanidua_p0fw0t.png" alt="Bumdes Logo" class="w-12 h-12 rounded-xl shadow-lg shadow-blue-500/30" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.alt='Bumdes Logo';">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjYZqwiWXyTdWQ79C5QvhyphenhyphenCWCSTjcCAysIz1PCjn3EM-xvG-iYm7JHsf-apnYo8G3_c28OUAp0YvzyqXcTl5vk5RkWN8K8Xie9vyP_y1nHJAs6z42l345Wb2J8Uc7nUg-jp7nM20F5-XrAQ2rBFs4nIg_PZhUu04Xm0y1UQyUDtrRluLr4xyf37nK2gZuNh/s1254/logo2.png" alt="Bumdes Logo" class="w-12 h-12 rounded-xl shadow-lg shadow-blue-500/30" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.alt='Bumdes Logo';">
       <div>
        <h1 id="nav-title" class="text-xl font-bold text-white">Bumdes Malambora Wani</h1>
        <p class="text-xs text-blue-300">Bersama Membangun Desa</p>
@@ -365,62 +416,57 @@
    </div>
   </nav>
 <!-- ================= 2. SLIDER GAMBAR OTOMATIS (DITAROH DI BAWAH NAVBAR) ================= -->
-  <section id="galeri" class="pt-20 w-full overflow-hidden bg-gray-950">
-   <div class="swiper mySwiper w-full">
-    
-    <div class="swiper-wrapper">
-     
-     <!-- Slide 1 -->
-     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
-      <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_2_qimnih.jpg" alt="Rapat Anggota" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
-      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
-       <span class="px-3 py-1 rounded-md bg-blue-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 01</span>
-       <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Rapat Anggota Tahunan</h3>
-       <p class="text-gray-300 text-xs sm:text-sm">Diskusi pengembangan strategi usaha desa dan evaluasi kinerja tahunan.</p>
+  <!-- ELEMENT SLIDER -->
+  <div class="slider-box">
+    <div class="slider-wrapper">
+      
+      <!-- Slide 1 -->
+      <div class="slide-item">
+        <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_2_qimnih.jpg" alt="Slide 1">
+        <div class="overlay"></div>
+        <div class="caption">
+          <span class="tag">Kegiatan 01</span>
+          <h3>Rapat Anggota Tahunan</h3>
+          <p>Diskusi pengembangan strategi usaha desa dan evaluasi kinerja tahunan.</p>
+        </div>
       </div>
-     </div>
 
-     <!-- Slide 2 -->
-     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
-      <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_1_gl8op9.jpg" alt="Kegiatan Pertanian" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
-      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
-       <span class="px-3 py-1 rounded-md bg-green-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 02</span>
-       <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Sektor Pertanian Mandiri</h3>
-       <p class="text-gray-300 text-xs sm:text-sm">Pengelolaan hasil tani lokal untuk meningkatkan ketahanan pangan desa.</p>
+      <!-- Slide 2 -->
+      <div class="slide-item">
+        <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_1_gl8op9.jpg" alt="Slide 2">
+        <div class="overlay"></div>
+        <div class="caption">
+          <span class="tag" style="background-color: #10b981;">Kegiatan 02</span>
+          <h3>Sektor Pertanian Mandiri</h3>
+          <p>Pengelolaan hasil tani lokal untuk meningkatkan ketahanan pangan desa.</p>
+        </div>
       </div>
-     </div>
 
-     <!-- Slide 3 -->
-     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
-      <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_yhdax6.jpg" alt="Pelatihan Keterampilan" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
-      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
-       <span class="px-3 py-1 rounded-md bg-purple-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 03</span>
-       <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Pelatihan Keterampilan SDM</h3>
-       <p class="text-gray-300 text-xs sm:text-sm">Program pemberdayaan masyarakat dan peningkatan kapasitas pengurus Bumdes.</p>
+      <!-- Slide 3 -->
+      <div class="slide-item">
+        <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/download_yhdax6.jpg" alt="Slide 3">
+        <div class="overlay"></div>
+        <div class="caption">
+          <span class="tag" style="background-color: #8b5cf6;">Kegiatan 03</span>
+          <h3>Pelatihan Keterampilan SDM</h3>
+          <p>Program pemberdayaan masyarakat dan peningkatan kapasitas pengurus.</p>
+        </div>
       </div>
-     </div>
 
-     <!-- Slide 4 -->
-     <div class="swiper-slide relative h-[380px] sm:h-[480px] lg:h-[550px] w-full">
-      <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_c3ddgi.jpg" alt="Kerjasama Mitra" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/30 to-transparent"></div>
-      <div class="absolute bottom-12 left-6 sm:left-16 max-w-xl z-10 text-left">
-       <span class="px-3 py-1 rounded-md bg-amber-600 text-white text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Kegiatan 04</span>
-       <h3 class="text-xl sm:text-3xl font-bold text-white mb-1">Kerjasama Kemitraan Strategis</h3>
-       <p class="text-gray-300 text-xs sm:text-sm">Penandatanganan kerjasama untuk perluasan jaringan distribusi bisnis desa.</p>
+      <!-- Slide 4 -->
+      <div class="slide-item">
+        <img src="https://res.cloudinary.com/dpr2vc3b0/image/upload/v1772872364/images_c3ddgi.jpg" alt="Slide 4">
+        <div class="overlay"></div>
+        <div class="caption">
+          <span class="tag" style="background-color: #f59e0b;">Kegiatan 04</span>
+          <h3>Kerjasama Kemitraan Strategis</h3>
+          <p>Penandatanganan kerjasama untuk perluasan jaringan distribusi bisnis desa.</p>
+        </div>
       </div>
-     </div>
 
     </div>
-
-    <!-- Indikator Titik Otomatis -->
-    <div class="swiper-pagination !bottom-4 !left-auto !right-6 sm:!right-16 !w-auto"></div>
-
-   </div>
-  </section>
+  </div>
+    
 <!-- Hero Section -->
   <section id="beranda" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-950"></div><!-- Animated Background Elements -->
