@@ -256,6 +256,44 @@
       padding: 2px 5px;
     }
   }
+/* CSS KUSUS SLIDER FULL WIDTH (MENTOK KIRI-KANAN) */
+    .slider-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      width: 100vw;
+    }
+
+    .slider-container::-webkit-scrollbar {
+      display: none; /* Sembunyikan scrollbar */
+    }
+
+    .slide-item {
+      flex: 0 0 100vw;
+      width: 100vw;
+      scroll-snap-align: start;
+      position: relative;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after { width: 100%; }
 </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
