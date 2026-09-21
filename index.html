@@ -9,6 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
    <!-- Tailwind CSS for utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -116,7 +118,7 @@ body {
             border-top: 1px solid #eeeeee;
         }
 ==============
-    </style>
+   
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -517,76 +519,56 @@ body {
   </div>
     
 ============
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center justify-start">
+<div class="bumdes-section-wrapper">
+  <!-- Header Hijau -->
+  <div class="bumdes-header-bar">
+    <div class="bumdes-header-info">
+      <div class="bumdes-header-text">
+        <div class="bumdes-header-title">WANI DUA</div>
+        <div class="bumdes-header-sub">BUM Desa</div>
+      </div>
+      <div class="bumdes-check-icon">
+        <i class="fa-solid fa-check"></i>
+      </div>
+    </div>
+  </div>
 
-    <div class="w-full max-w-5xl bg-green-primary text-white rounded-xl px-6 py-3 flex justify-end items-center shadow-sm mb-10">
-        <div class="flex items-center gap-3">
-            <div class="text-right leading-tight">
-                <div class="font-bold text-sm md:text-base tracking-wide">WANI DUA</div>
-                <div class="text-xs md:text-sm font-medium opacity-90">BUM Desa</div>
-            </div>
-            <!-- Checkmark Circle Icon -->
-            <div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
-                <i class="fa-solid fa-check text-white text-base"></i>
-            </div>
+  <!-- Judul Profil -->
+  <h2 class="bumdes-main-title">Profil BUM DESA MALAMBORA WANI DUA</h2>
+
+  <!-- Kartu Dokumen -->
+  <div class="bumdes-cards-grid">
+    <!-- Kartu 1 -->
+    <div class="bumdes-card">
+      <div class="bumdes-card-body">
+        <div class="bumdes-icon-circle">
+          <i class="fa-solid fa-file-circle-plus"></i>
         </div>
+        <h3 class="bumdes-card-title">Dokumen Persetujuan Menteri</h3>
+      </div>
+      <div class="bumdes-card-footer">
+        <a href="https://www.wanidua.online/" target="_blank" class="bumdes-btn">
+          Cetak Pengajuan Nama
+        </a>
+      </div>
     </div>
 
-    <main class="w-full max-w-5xl flex flex-col items-center">
-        <h1 class="text-xl md:text-2xl font-medium text-gray-800 text-center mb-8 tracking-wide">
-            Profil BUM DESA MALAMBORA WANI DUA
-        </h1>
-
-        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
-            
-            <!-- CARD 1: Dokumen Persetujuan Menteri -->
-            <div class="bg-white rounded-xl card-shadow flex flex-col justify-between overflow-hidden">
-                <!-- Upper Content -->
-                <div class="p-8 flex flex-col items-center justify-center flex-grow text-center">
-                    <!-- Circle Icon -->
-                    <div class="w-16 h-16 rounded-full bg-green-primary flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fa-solid fa-file-circle-plus text-white text-2xl"></i>
-                    </div>
-                    <!-- Title -->
-                    <h2 class="text-gray-700 font-medium text-base md:text-lg">
-                        Dokumen Persetujuan Menteri
-                    </h2>
-                </div>
-
-                <!-- Card Footer with Divider -->
-                <div class="card-divider p-5 flex items-center justify-center bg-white">
-                    <a href="https://www.wanidua.online/" target="_blank" rel="noopener noreferrer" 
-                       class="inline-block bg-purple-button text-white text-xs md:text-sm font-medium px-6 py-2.5 rounded-lg text-center hover:shadow-md transition">
-                        Cetak Pengajuan Nama
-                    </a>
-                </div>
-            </div>
-
-            <!-- CARD 2: Sertifikat Badan Hukum -->
-            <div class="bg-white rounded-xl card-shadow flex flex-col justify-between overflow-hidden">
-                <!-- Upper Content -->
-                <div class="p-8 flex flex-col items-center justify-center flex-grow text-center">
-                    <!-- Circle Icon -->
-                    <div class="w-16 h-16 rounded-full bg-green-primary flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fa-solid fa-cart-shopping text-white text-2xl"></i>
-                    </div>
-                    <!-- Title -->
-                    <h2 class="text-gray-700 font-medium text-base md:text-lg">
-                        Sertifikat Badan Hukum
-                    </h2>
-                </div>
-
-                <!-- Card Footer with Divider -->
-                <div class="card-divider p-5 flex items-center justify-center bg-white">
-                    <a href="https://www.wanidua.online/" target="_blank" rel="noopener noreferrer" 
-                       class="inline-block w-full max-w-md bg-purple-button text-white text-xs md:text-sm font-medium px-4 py-2.5 rounded-lg text-center hover:shadow-md transition leading-tight">
-                        Cetak Sertifikat Badan Hukum AHU-06905.AH.01.33.TAHUN 2026
-                    </a>
-                </div>
-            </div>
-
+    <!-- Kartu 2 -->
+    <div class="bumdes-card">
+      <div class="bumdes-card-body">
+        <div class="bumdes-icon-circle">
+          <i class="fa-solid fa-cart-shopping"></i>
         </div>
-    </main>
+        <h3 class="bumdes-card-title">Sertifikat Badan Hukum</h3>
+      </div>
+      <div class="bumdes-card-footer">
+        <a href="https://www.wanidua.online/" target="_blank" class="bumdes-btn">
+          Cetak Sertifikat Badan Hukum AHU-06905.AH.01.33.TAHUN 2026
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 =================
 <!-- Hero Section -->
   <section id="beranda" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
